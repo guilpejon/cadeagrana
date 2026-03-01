@@ -2,7 +2,7 @@
 <div class="space-y-6">
 
   <%# Summary Cards %>
-  <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+  <div class="grid grid-cols-2 lg:grid-cols-5 gap-4">
     <%# Total Income %>
     <div class="rounded-xl border p-4" style="background-color: #1E2130; border-color: #2A2F45;">
       <div class="flex items-center justify-between mb-3">
@@ -49,6 +49,17 @@
       </div>
       <p class="text-xl font-bold" style="color: #F7B731;"><%= format_brl(@total_card_bills) %></p>
       <p class="text-xs mt-1" style="color: #8892A4;"><%= @credit_cards.count %> card<%= @credit_cards.count == 1 ? "" : "s" %></p>
+    </div>
+    <%# Bank Accounts %>
+    <div class="rounded-xl border p-4" style="background-color: #1E2130; border-color: #2A2F45;">
+      <div class="flex items-center justify-between mb-3">
+        <span class="text-xs font-medium uppercase tracking-wide" style="color: #8892A4;">Bank Balance</span>
+        <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background-color: rgba(108,99,255,0.15);">
+          <%= svg_icon "landmark", css_class: "w-4 h-4", stroke: "#6C63FF" %>
+        </div>
+      </div>
+      <p class="text-xl font-bold" style="color: #6C63FF;"><%= format_brl(@total_bank_balance) %></p>
+      <p class="text-xs mt-1" style="color: #8892A4;"><%= link_to "View accounts", bank_accounts_path, style: "color: #6C63FF;" %></p>
     </div>
   </div>
 

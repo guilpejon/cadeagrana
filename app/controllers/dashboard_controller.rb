@@ -31,6 +31,9 @@ class DashboardController < ApplicationController
       .group_by_month(:date, format: "%b %Y")
       .sum(:amount)
 
+    # Bank accounts total balance
+    @total_bank_balance = current_user.bank_accounts.sum(:balance)
+
     # Recent transactions
     @recent_transactions = current_user.expenses
       .includes(:category)

@@ -10,9 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_28_150133) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_01_005317) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "bank_accounts", force: :cascade do |t|
+    t.string "account_type", default: "checking", null: false
+    t.decimal "balance", precision: 15, scale: 2, default: "0.0"
+    t.string "bank_name"
+    t.string "color", default: "#6C63FF"
+    t.datetime "created_at", null: false
+    t.string "currency", default: "BRL"
+    t.decimal "interest_rate", precision: 8, scale: 4, default: "0.0"
+    t.string "name", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_bank_accounts_on_user_id"
+  end
 
   create_table "categories", force: :cascade do |t|
     t.string "color", default: "#6C63FF", null: false
@@ -97,6 +111,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_28_150133) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "bank_accounts", "users"
   add_foreign_key "categories", "users"
   add_foreign_key "credit_cards", "users"
   add_foreign_key "expenses", "categories"

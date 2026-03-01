@@ -1,0 +1,56 @@
+<%= form_with model: bank_account, class: "space-y-4" do |f| %>
+  <% if bank_account.errors.any? %>
+    <div class="px-4 py-3 rounded-lg border text-sm" style="background-color: rgba(255,107,107,0.1); border-color: #FF6B6B; color: #FF6B6B;">
+      <% bank_account.errors.full_messages.each do |msg| %><p><%= msg %></p><% end %>
+    </div>
+  <% end %>
+
+  <div class="grid grid-cols-2 gap-3">
+    <div>
+      <label class="block text-xs font-medium mb-1.5" style="color: #8892A4;">Name *</label>
+      <%= f.text_field :name, class: "w-full px-3 py-2.5 rounded-lg border text-sm outline-none transition-all", style: "background-color: #0F1117; border-color: #2A2F45; color: #E2E8F0;", placeholder: "e.g. Main Checking", autofocus: true %>
+    </div>
+    <div>
+      <label class="block text-xs font-medium mb-1.5" style="color: #8892A4;">Bank Name</label>
+      <%= f.text_field :bank_name, class: "w-full px-3 py-2.5 rounded-lg border text-sm outline-none transition-all", style: "background-color: #0F1117; border-color: #2A2F45; color: #E2E8F0;", placeholder: "e.g. Nubank" %>
+    </div>
+  </div>
+
+  <div>
+    <label class="block text-xs font-medium mb-1.5" style="color: #8892A4;">Account Type *</label>
+    <%= f.select :account_type,
+        [["Checking", "checking"], ["Savings", "savings"], ["Other", "other"]],
+        {},
+        class: "w-full px-3 py-2.5 rounded-lg border text-sm outline-none transition-all",
+        style: "background-color: #0F1117; border-color: #2A2F45; color: #E2E8F0;" %>
+  </div>
+
+  <div class="grid grid-cols-2 gap-3">
+    <div>
+      <label class="block text-xs font-medium mb-1.5" style="color: #8892A4;">Balance (R$)</label>
+      <%= f.number_field :balance, step: "0.01", min: "0", class: "w-full px-3 py-2.5 rounded-lg border text-sm outline-none transition-all", style: "background-color: #0F1117; border-color: #2A2F45; color: #E2E8F0;", placeholder: "0.00" %>
+    </div>
+    <div>
+      <label class="block text-xs font-medium mb-1.5" style="color: #8892A4;">Interest Rate (% p.a.)</label>
+      <%= f.number_field :interest_rate, step: "0.0001", min: "0", class: "w-full px-3 py-2.5 rounded-lg border text-sm outline-none transition-all", style: "background-color: #0F1117; border-color: #2A2F45; color: #E2E8F0;", placeholder: "0.00" %>
+    </div>
+  </div>
+
+  <div>
+    <label class="block text-xs font-medium mb-1.5" style="color: #8892A4;">Color</label>
+    <div class="flex flex-wrap gap-2">
+      <% BankAccount::COLORS.each do |color| %>
+        <label class="cursor-pointer">
+          <%= f.radio_button :color, color, class: "sr-only peer" %>
+          <span class="block w-8 h-8 rounded-lg peer-checked:ring-2 peer-checked:ring-offset-2 peer-checked:ring-offset-[#1E2130] peer-checked:ring-white transition-all"
+                style="background-color: <%= color %>;"></span>
+        </label>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="flex gap-3 pt-2">
+    <%= f.submit bank_account.new_record? ? "Add Account" : "Update Account", class: "flex-1 py-2.5 rounded-lg text-sm font-semibold cursor-pointer transition-colors hover:opacity-90", style: "background-color: #6C63FF; color: white;" %>
+    <%= link_to "Cancel", bank_accounts_path, class: "px-4 py-2.5 rounded-lg text-sm font-medium transition-colors hover:bg-white/5", style: "color: #8892A4;" %>
+  </div>
+<% end %>

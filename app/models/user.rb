@@ -9,6 +9,7 @@ class User < ApplicationRecord
   has_many :expenses, dependent: :destroy
   has_many :credit_cards, dependent: :destroy
   has_many :investments, dependent: :destroy
+  has_many :bank_accounts, dependent: :destroy
 
   after_create :create_default_categories
 

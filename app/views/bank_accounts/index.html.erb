@@ -1,0 +1,118 @@
+<div class="space-y-5">
+  <div class="flex items-center justify-between">
+    <h1 class="text-xl font-bold" style="color: #E2E8F0;">Bank Accounts</h1>
+    <%= link_to new_bank_account_path, class: "flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-colors hover:opacity-90", style: "background-color: #6C63FF; color: white;" do %>
+      <%= svg_icon "plus", css_class: "w-4 h-4", stroke: "white" %>
+      Add Account
+    <% end %>
+  </div>
+
+  <%# Summary cards %>
+  <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+    <div class="rounded-xl border p-4" style="background-color: #1E2130; border-color: #2A2F45;">
+      <p class="text-xs font-medium uppercase tracking-wide mb-2" style="color: #8892A4;">Total Balance</p>
+      <p class="text-lg font-bold" style="color: #E2E8F0;"><%= format_brl(@total_balance) %></p>
+    </div>
+    <div class="rounded-xl border p-4" style="background-color: #1E2130; border-color: #2A2F45;">
+      <p class="text-xs font-medium uppercase tracking-wide mb-2" style="color: #8892A4;">Est. Monthly Interest</p>
+      <p class="text-lg font-bold" style="color: #00D4AA;"><%= format_brl(@total_monthly_interest) %></p>
+    </div>
+    <div class="rounded-xl border p-4" style="background-color: #1E2130; border-color: #2A2F45;">
+      <p class="text-xs font-medium uppercase tracking-wide mb-2" style="color: #8892A4;">Est. Yearly Interest</p>
+      <p class="text-lg font-bold" style="color: #00D4AA;"><%= format_brl(@total_yearly_interest) %></p>
+    </div>
+  </div>
+
+  <%# Accounts by type %>
+  <% if @bank_accounts.any? %>
+    <% @by_type.each do |type, accounts| %>
+      <div class="rounded-xl border overflow-hidden" style="background-color: #1E2130; border-color: #2A2F45;">
+        <div class="px-4 py-3 border-b" style="border-color: #2A2F45; background-color: rgba(42,47,69,0.4);">
+          <h2 class="text-sm font-semibold capitalize" style="color: #E2E8F0;">
+            <%= type.capitalize %>
+            <span class="ml-2 text-xs font-normal" style="color: #8892A4;"><%= accounts.count %></span>
+          </h2>
+        </div>
+
+        <%# Table header %>
+        <div class="hidden md:grid grid-cols-6 gap-3 px-4 py-2 text-xs font-medium uppercase tracking-wide border-b" style="color: #8892A4; border-color: #2A2F45;">
+          <div class="col-span-2">Name</div>
+          <div>Bank</div>
+          <div class="text-right">Balance</div>
+          <div class="text-right">Interest Rate</div>
+          <div class="text-right">Actions</div>
+        </div>
+
+        <div class="divide-y" style="border-color: #2A2F45;">
+          <% accounts.each do |account| %>
+            <div class="px-4 py-3 hover:bg-white/[0.02] transition-colors">
+              <div class="flex items-center justify-between md:grid md:grid-cols-6 md:gap-3">
+                <%# Name %>
+                <div class="col-span-2 flex items-center gap-2 min-w-0">
+                  <div class="w-8 h-8 rounded-lg flex-shrink-0" style="background-color: <%= account.color %>;"></div>
+                  <div class="min-w-0">
+                    <p class="text-sm font-medium truncate" style="color: #E2E8F0;"><%= account.name %></p>
+                    <p class="text-xs md:hidden" style="color: #8892A4;"><%= account.bank_name.presence || "—" %></p>
+                  </div>
+                </div>
+
+                <%# Mobile: show balance %>
+                <div class="md:hidden flex flex-col items-end gap-0.5">
+                  <span class="text-sm font-semibold" style="color: #E2E8F0;"><%= format_brl(account.balance) %></span>
+                  <% if account.interest_rate > 0 %>
+                    <span class="text-xs" style="color: #00D4AA;"><%= account.interest_rate %>% p.a.</span>
+                  <% end %>
+                </div>
+
+                <%# Desktop columns %>
+                <div class="hidden md:block">
+                  <span class="text-sm" style="color: #8892A4;"><%= account.bank_name.presence || "—" %></span>
+                </div>
+                <div class="hidden md:block text-right">
+                  <span class="text-sm font-semibold" style="color: #E2E8F0;"><%= format_brl(account.balance) %></span>
+                </div>
+                <div class="hidden md:block text-right">
+                  <% if account.interest_rate > 0 %>
+                    <span class="text-sm" style="color: #00D4AA;"><%= account.interest_rate %>% p.a.</span>
+                  <% else %>
+                    <span class="text-sm" style="color: #8892A4;">—</span>
+                  <% end %>
+                </div>
+                <div class="hidden md:flex items-center justify-end gap-1">
+                  <%= link_to edit_bank_account_path(account), class: "p-1.5 rounded-lg hover:bg-white/5 transition-colors", style: "color: #8892A4;" do %>
+                    <%= svg_icon "edit", css_class: "w-3.5 h-3.5" %>
+                  <% end %>
+                  <%= button_to bank_account_path(account), method: :delete,
+                      form: { data: { turbo_confirm: "Remove this account?" } },
+                      class: "p-1.5 rounded-lg hover:bg-white/5 transition-colors",
+                      style: "color: #8892A4; background: none; border: none; cursor: pointer;" do %>
+                    <%= svg_icon "trash-2", css_class: "w-3.5 h-3.5" %>
+                  <% end %>
+                </div>
+              </div>
+
+              <%# Mobile actions %>
+              <div class="flex items-center justify-end gap-1 mt-1 md:hidden">
+                <%= link_to edit_bank_account_path(account), class: "p-1.5 rounded-lg hover:bg-white/5 transition-colors", style: "color: #8892A4;" do %>
+                  <%= svg_icon "edit", css_class: "w-3.5 h-3.5" %>
+                <% end %>
+                <%= button_to bank_account_path(account), method: :delete,
+                    form: { data: { turbo_confirm: "Remove this account?" } },
+                    class: "p-1.5 rounded-lg hover:bg-white/5 transition-colors",
+                    style: "color: #8892A4; background: none; border: none; cursor: pointer;" do %>
+                  <%= svg_icon "trash-2", css_class: "w-3.5 h-3.5" %>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+    <div class="rounded-xl border flex flex-col items-center justify-center py-16 gap-3" style="background-color: #1E2130; border-color: #2A2F45;">
+      <%= svg_icon "landmark", css_class: "w-12 h-12 opacity-20", stroke: "#8892A4" %>
+      <p class="text-sm font-medium" style="color: #8892A4;">No bank accounts added yet</p>
+      <%= link_to "Add your first account", new_bank_account_path, class: "text-sm font-medium hover:opacity-80", style: "color: #6C63FF;" %>
+    </div>
+  <% end %>
+</div>

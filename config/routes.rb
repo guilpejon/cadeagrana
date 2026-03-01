@@ -14,6 +14,7 @@ Rails.application.routes.draw do
       post :refresh_all_prices
     end
   end
+  resources :bank_accounts
   resources :categories
   get "/forecast", to: "forecast#index", as: :forecast
 
