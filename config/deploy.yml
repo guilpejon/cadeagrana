@@ -1,19 +1,19 @@
 # Name of your application. Used to uniquely configure containers.
-service: cadeagrana
+service: acompanhesuagrana
 
 # Name of the container image (use your-user/app-name on external registries).
-image: guilpejon/cadeagrana
+image: guilpejon/acompanhesuagrana
 
 # Deploy to these servers.
 servers:
   web:
-    - ssh.cadeagrana.com.br
+    - ssh.acompanhesuagrana.com.br
 
 # Kamal proxy configuration
 # Cloudflare tunnel handles SSL — no Let's Encrypt needed.
 proxy:
   ssl: false
-  host: cadeagrana.com.br,www.cadeagrana.com.br
+  host: acompanhesuagrana.com.br,www.acompanhesuagrana.com.br
   healthcheck:
     path: /up
     interval: 3
@@ -29,7 +29,7 @@ registry:
 env:
   secret:
     - RAILS_MASTER_KEY
-    - CADEAGRANA_DATABASE_PASSWORD
+    - ACOMPANHESUAGRANA_DATABASE_PASSWORD
   clear:
     # Run the Solid Queue Supervisor inside the web server's Puma process.
     SOLID_QUEUE_IN_PUMA: true
@@ -50,7 +50,7 @@ aliases:
 
 # Use a persistent storage volume for Active Storage files.
 volumes:
-  - "cadeagrana_storage:/rails/storage"
+  - "acompanhesuagrana_storage:/rails/storage"
 
 asset_path: /rails/public/assets
 
@@ -60,7 +60,7 @@ builder:
   arch: arm64
 
   # Build directly on the Pi (native ARM64, much faster than QEMU emulation).
-  remote: ssh://guilpejon@ssh.cadeagrana.com.br
+  remote: ssh://guilpejon@ssh.acompanhesuagrana.com.br
 
 # SSH configuration for Raspberry Pi.
 ssh:
