@@ -12,7 +12,7 @@ class DashboardController < ApplicationController
     @total_card_bills = @credit_cards.sum { |card| card.current_bill(@current_date) }
 
     # Spending by category for donut chart
-    @spending_by_category = @expenses
+    raw_spending = @expenses
       .joins(:category)
       .group("categories.name")
       .sum(:amount)
@@ -21,7 +21,8 @@ class DashboardController < ApplicationController
       .to_h
 
     category_color_map = current_user.categories.pluck(:name, :color).to_h
-    @spending_colors = @spending_by_category.keys.map { |name| category_color_map[name] || "#6C63FF" }
+    @spending_colors = raw_spending.keys.map { |name| category_color_map[name] || "#6C63FF" }
+    @spending_by_category = raw_spending.transform_keys { |name| I18n.t("category_names.#{name}", default: name) }
 
     # Spending by payee for donut chart
     @spending_by_payee = @expenses

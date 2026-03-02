@@ -30,7 +30,7 @@ class BankAccountsController < ApplicationController
     @bank_account = current_user.bank_accounts.build(bank_account_params)
 
     if @bank_account.save
-      redirect_to bank_accounts_path, notice: "Bank account added."
+      redirect_to bank_accounts_path, notice: t("controllers.bank_accounts.created")
     else
       @cdi_info = CdiRate.cached_info
       render :new, status: :unprocessable_entity
@@ -43,7 +43,7 @@ class BankAccountsController < ApplicationController
 
   def update
     if @bank_account.update(bank_account_params)
-      redirect_to bank_accounts_path, notice: "Bank account updated."
+      redirect_to bank_accounts_path, notice: t("controllers.bank_accounts.updated")
     else
       @cdi_info = CdiRate.cached_info
       render :edit, status: :unprocessable_entity
@@ -52,12 +52,12 @@ class BankAccountsController < ApplicationController
 
   def destroy
     @bank_account.destroy
-    redirect_to bank_accounts_path, notice: "Bank account removed."
+    redirect_to bank_accounts_path, notice: t("controllers.bank_accounts.destroyed")
   end
 
   def refresh_cdi_rate
     BankAccounts::FetchCdiRateJob.perform_later
-    redirect_to bank_accounts_path, notice: "CDI rate refresh queued."
+    redirect_to bank_accounts_path, notice: t("controllers.bank_accounts.cdi_queued")
   end
 
   private

@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   allow_browser versions: :modern
   stale_when_importmap_changes
 
+  before_action :set_locale
   before_action :authenticate_user!
   before_action :set_current_date
   before_action :configure_permitted_parameters, if: :devise_controller?
@@ -11,6 +12,8 @@ class ApplicationController < ActionController::Base
   private
 
   def set_current_date
+    return unless current_user
+
     today = Date.current.beginning_of_month
     min_date = today - 24.months
 
@@ -35,8 +38,12 @@ class ApplicationController < ActionController::Base
     @current_date = Date.current.beginning_of_month
   end
 
+  def set_locale
+    I18n.locale = current_user&.locale || I18n.default_locale
+  end
+
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :currency])
-    devise_parameter_sanitizer.permit(:account_update, keys: [:name, :currency])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:name, :currency, :locale])
   end
 end

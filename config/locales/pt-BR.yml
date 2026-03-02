@@ -1,0 +1,499 @@
+pt-BR:
+  app:
+    name: "Cade a Grana"
+
+  date:
+    month_names:
+      - ~
+      - Janeiro
+      - Fevereiro
+      - Março
+      - Abril
+      - Maio
+      - Junho
+      - Julho
+      - Agosto
+      - Setembro
+      - Outubro
+      - Novembro
+      - Dezembro
+    abbr_month_names:
+      - ~
+      - Jan
+      - Fev
+      - Mar
+      - Abr
+      - Mai
+      - Jun
+      - Jul
+      - Ago
+      - Set
+      - Out
+      - Nov
+      - Dez
+
+  category_names:
+    Housing: "Moradia"
+    Food: "Alimentação"
+    Transport: "Transporte"
+    Health: "Saúde"
+    Entertainment: "Entretenimento"
+    Shopping: "Compras"
+    Education: "Educação"
+    Utilities: "Contas"
+    Travel: "Viagem"
+    Other: "Outros"
+
+  layouts:
+    sidebar:
+      dashboard: "Painel"
+      expenses: "Despesas"
+      income: "Receitas"
+      credit_cards: "Cartões de Crédito"
+      bank_accounts: "Contas Bancárias"
+      investments: "Investimentos"
+      possessions: "Patrimônio"
+      forecast: "Projeção"
+      categories: "Categorias"
+      settings: "Configurações"
+      sign_out: "Sair"
+    topbar:
+      back: "Voltar"
+      add_expense: "Adicionar Despesa"
+    mobile_nav:
+      home: "Início"
+      expenses: "Despesas"
+      income: "Receitas"
+      invest: "Invest."
+      forecast: "Projeção"
+
+  dashboard:
+    total_income: "Receita Total"
+    expenses: "Despesas"
+    net_balance: "Saldo Líquido"
+    income_minus_expenses: "Receita - Despesas"
+    card_bills: "Faturas"
+    bank_balance: "Saldo Bancário"
+    view_accounts: "Ver contas"
+    possessions: "Patrimônio"
+    view_possessions: "Ver patrimônio"
+    spending_by_category: "Gastos por Categoria"
+    cash_flow: "Fluxo de Caixa — Últimos 6 Meses"
+    income_label: "Receita"
+    expenses_label: "Despesas"
+    spending_by_payee: "Gastos por Beneficiário"
+    recent_transactions: "Transações Recentes"
+    view_all: "Ver todas"
+    no_expenses_month: "Nenhuma despesa registrada este mês"
+    no_data_6_months: "Sem dados dos últimos 6 meses"
+    no_payees_month: "Nenhum beneficiário atribuído às despesas deste mês"
+    no_recent_transactions: "Nenhuma transação recente"
+    card_count:
+      one: "1 cartão"
+      other: "%{count} cartões"
+
+  expenses:
+    index:
+      title: "Despesas"
+      total: "Total:"
+      add_expense: "Adicionar Despesa"
+      no_expenses: "Nenhuma despesa este mês"
+      add_first: "Adicionar primeira despesa"
+    new:
+      title: "Nova Despesa"
+      quick_title: "Adicionar Despesa Rápida"
+    edit:
+      title: "Editar Despesa"
+    form:
+      amount: "Valor *"
+      payment_method: "Forma de Pagamento"
+      cash: "Dinheiro"
+      pix: "PIX"
+      boleto: "Boleto"
+      credit_card: "Cartão de Crédito"
+      category: "Categoria *"
+      payee: "Beneficiário"
+      payee_placeholder: "Buscar ou criar beneficiário..."
+      description: "Descrição"
+      description_placeholder: "No que você gastou?"
+      date: "Data"
+      type: "Tipo"
+      variable: "Variável"
+      fixed: "Fixo"
+      select_card: "— Selecionar Cartão —"
+      installments: "Parcelas"
+      per_installment: "Por parcela:"
+      installment_label: "Parcela"
+      installment_note: "— somente esta parcela será atualizada"
+      recurring: "Despesa recorrente"
+      add: "Adicionar Despesa"
+      update: "Atualizar Despesa"
+      cancel: "Cancelar"
+    expense:
+      delete_confirm: "Excluir esta despesa?"
+
+  incomes:
+    index:
+      title: "Receitas"
+      total: "Total:"
+      add: "Adicionar Receita"
+      no_income: "Nenhuma receita registrada este mês"
+      add_first: "Adicionar receita"
+    new:
+      title: "Nova Receita"
+    edit:
+      title: "Editar Receita"
+    form:
+      description: "Descrição *"
+      description_placeholder: "ex: Salário Mensal"
+      amount: "Valor *"
+      date: "Data *"
+      type: "Tipo"
+      salary: "Salário"
+      freelance: "Freelance"
+      dividend: "Dividendo"
+      other: "Outros"
+      recurring: "Receita recorrente"
+      add: "Adicionar Receita"
+      update: "Atualizar Receita"
+      cancel: "Cancelar"
+    income:
+      delete_confirm: "Excluir esta receita?"
+
+  credit_cards:
+    index:
+      title: "Cartões de Crédito"
+      add: "Adicionar Cartão"
+      current_bill: "Fatura Atual"
+      limit: "Limite"
+      billing_due: "Fechamento / Vencimento"
+      day: "Dia"
+      usage: "Uso"
+      edit: "Editar"
+      delete_confirm: "Remover este cartão?"
+      no_cards: "Nenhum cartão de crédito adicionado"
+      add_first: "Adicionar primeiro cartão"
+    new:
+      title: "Adicionar Cartão de Crédito"
+    edit:
+      title: "Editar Cartão"
+    form:
+      card_name: "Nome do Cartão *"
+      card_name_placeholder: "ex: Nubank Platinum"
+      brand: "Bandeira"
+      select_brand: "Selecionar bandeira"
+      last_four: "Últimos 4 dígitos"
+      credit_limit: "Limite de Crédito (R$)"
+      billing_day: "Dia de Fechamento"
+      due_day: "Dia de Vencimento"
+      color: "Cor do Cartão"
+      color_hint: "Escolha uma cor para seu cartão"
+      add: "Adicionar Cartão"
+      update: "Atualizar Cartão"
+      cancel: "Cancelar"
+    brands:
+      visa: "Visa"
+      mastercard: "Mastercard"
+      amex: "Amex"
+      elo: "Elo"
+      hipercard: "Hipercard"
+      other: "Outros"
+
+  bank_accounts:
+    index:
+      title: "Contas Bancárias"
+      refresh_cdi: "Atualizar CDI"
+      add: "Adicionar Conta"
+      cdi_rate_annual: "Taxa CDI (Anual)"
+      cdi_pa: "% a.a."
+      as_of: "em"
+      updated: "atualizado"
+      ago: "atrás"
+      cdi_not_cached: 'Taxa CDI não disponível — clique em "Atualizar CDI" para buscar a taxa atual do Banco Central do Brasil.'
+      total_balance: "Saldo Total"
+      est_monthly_interest: "Rendimento Mensal Est."
+      est_yearly_interest: "Rendimento Anual Est."
+      name: "Nome"
+      bank: "Banco"
+      balance: "Saldo"
+      interest_rate: "Taxa de Juros"
+      actions: "Ações"
+      no_accounts: "Nenhuma conta bancária adicionada"
+      add_first: "Adicionar primeira conta"
+    new:
+      title: "Adicionar Conta Bancária"
+    edit:
+      title: "Editar Conta Bancária"
+    form:
+      name: "Nome *"
+      name_placeholder: "ex: Conta Corrente Principal"
+      bank_name: "Nome do Banco"
+      bank_name_placeholder: "ex: Nubank"
+      account_type: "Tipo de Conta *"
+      checking: "Corrente"
+      savings: "Poupança"
+      other: "Outros"
+      balance: "Saldo (R$)"
+      rate_type: "Tipo de Taxa"
+      fixed_rate: "Taxa Fixa (% a.a.)"
+      cdi_percent: "% do CDI"
+      interest_rate: "Taxa de Juros (% a.a.)"
+      cdi_multiplier: "Multiplicador CDI (%)"
+      current_cdi: "CDI atual:"
+      pa: "% a.a."
+      as_of: "(em"
+      updated: "atualizado"
+      ago: "atrás)"
+      cdi_not_available: 'Taxa CDI não disponível — clique em "Atualizar CDI" na página de contas.'
+      color: "Cor"
+      add: "Adicionar Conta"
+      update: "Atualizar Conta"
+      cancel: "Cancelar"
+
+  investments:
+    index:
+      title: "Investimentos"
+      refresh_prices: "Atualizar Preços"
+      add: "Adicionar Investimento"
+      total_invested: "Total Investido"
+      current_value: "Valor Atual"
+      pl: "L&P"
+      return: "Rentabilidade"
+      stocks: "Ações"
+      crypto: "Crypto"
+      funds: "Fundos"
+      name_ticker: "Nome / Ticker"
+      qty: "Qtd"
+      avg_price: "Preço Médio"
+      curr_price: "Preço Atual"
+      total_value: "Valor Total"
+      no_investments: "Nenhum investimento adicionado"
+      add_first: "Adicionar primeiro investimento"
+    new:
+      title: "Adicionar Investimento"
+      note: "Preços de ações são atualizados automaticamente via brapi.dev (ações brasileiras). Preços de crypto via CoinGecko. Use o campo ticker para habilitar atualizações automáticas."
+    edit:
+      title: "Editar Investimento"
+    form:
+      name: "Nome *"
+      name_placeholder: "ex: Petrobras"
+      ticker: "Ticker / ID"
+      ticker_placeholder: "PETR4 ou bitcoin"
+      type: "Tipo *"
+      stock: "Ação / FII"
+      crypto: "Crypto"
+      fund: "Fundo"
+      quantity: "Quantidade"
+      avg_price: "Preço Médio (R$)"
+      current_price: "Preço Atual (R$) — atualizado automaticamente via API"
+      add: "Adicionar Investimento"
+      update: "Atualizar Investimento"
+      cancel: "Cancelar"
+
+  categories:
+    index:
+      title: "Categorias"
+      new: "Nova Categoria"
+      delete_confirm: "Excluir esta categoria? As despesas perderão sua categoria."
+      no_categories: "Nenhuma categoria ainda"
+    new:
+      title: "Nova Categoria"
+    edit:
+      title: "Editar Categoria"
+    form:
+      name: "Nome *"
+      name_placeholder: "ex: Assinaturas"
+      color: "Cor *"
+      icon: "Ícone"
+      add: "Criar Categoria"
+      update: "Atualizar Categoria"
+      cancel: "Cancelar"
+
+  payees:
+    index:
+      title: "Beneficiários"
+      new: "Novo Beneficiário"
+      delete_confirm: "Excluir este beneficiário?"
+      no_payees: "Nenhum beneficiário ainda"
+    new:
+      title: "Novo Beneficiário"
+    edit:
+      title: "Editar Beneficiário"
+    form:
+      name: "Nome *"
+      name_placeholder: "ex: Amazon, Netflix, Proprietário"
+      add: "Criar Beneficiário"
+      update: "Atualizar Beneficiário"
+      cancel: "Cancelar"
+
+  possessions:
+    index:
+      title: "Patrimônio"
+      add: "Adicionar Bem"
+      total_items: "Total de Itens"
+      total_purchase_value: "Valor Total de Compra"
+      total_current_value: "Valor Atual Total"
+      net_gain_loss: "Ganho / Perda Líquido"
+      name: "Nome"
+      purchase_price: "Preço de Compra"
+      current_value: "Valor Atual"
+      gain_loss: "Ganho / Perda"
+      actions: "Ações"
+      delete_confirm: "Remover este bem?"
+      no_possessions: "Nenhum bem adicionado"
+      add_first: "Adicionar primeiro bem"
+    new:
+      title: "Adicionar Bem"
+    edit:
+      title: "Editar Bem"
+    form:
+      name: "Nome *"
+      name_placeholder: "ex: Honda Civic"
+      type: "Tipo *"
+      vehicle: "Veículo"
+      electronics: "Eletrônicos"
+      real_estate: "Imóvel"
+      furniture: "Móveis"
+      jewelry: "Joias"
+      other: "Outros"
+      color: "Cor"
+      purchase_price: "Preço de Compra"
+      current_value: "Valor Atual"
+      purchase_date: "Data de Compra"
+      currency: "Moeda"
+      brl: "BRL (R$)"
+      usd: "USD ($)"
+      eur: "EUR (€)"
+      notes: "Notas"
+      notes_placeholder: "Notas opcionais sobre este item..."
+      add: "Adicionar Bem"
+      update: "Atualizar Bem"
+      cancel: "Cancelar"
+
+  forecast:
+    index:
+      title: "Projeção"
+      projection_for: "Projeção de despesas para"
+      projected_income: "Receita Projetada"
+      recurring_source: "fonte recorrente"
+      recurring_sources: "fontes"
+      projected_expenses: "Despesas Projetadas"
+      recurring: "recorrente"
+      installment: "parcela"
+      projected_balance: "Saldo Projetado"
+      vs: "vs"
+      in: "em"
+      projected_by_category: "Gastos Projetados por Categoria"
+      no_recurring: "Nenhuma despesa recorrente encontrada"
+      recurring_expenses: "Despesas Recorrentes"
+      day: "Dia"
+      no_recurring_yet: "Nenhuma despesa recorrente ainda"
+      recurring_hint: 'Marque despesas como "recorrente" ao adicioná-las para ver sua projeção aqui.'
+      installment_expenses: "Despesas Parceladas"
+      actuals: "Realizados —"
+
+  settings:
+    edit:
+      title: "Configurações"
+      subtitle: "Gerencie sua conta e preferências"
+      profile_section: "Perfil"
+      name: "Nome"
+      name_placeholder: "Seu nome"
+      email: "E-mail"
+      email_placeholder: "seu@email.com"
+      currency: "Moeda"
+      language: "Idioma"
+      save_changes: "Salvar Alterações"
+      password_section: "Alterar Senha"
+      current_password: "Senha Atual"
+      new_password: "Nova Senha"
+      password_hint: "Mínimo 6 caracteres"
+      confirm_password: "Confirmar Nova Senha"
+      update_password: "Atualizar Senha"
+      danger_section: "Zona de Perigo"
+      sign_out_all: "Sair de todos os dispositivos"
+      sign_out_description: "Encerra todas as sessões ativas"
+      sign_out: "Sair"
+      preferences_section: "Preferências"
+      language_english: "English"
+      language_pt_br: "Português (Brasil)"
+
+  shared:
+    empty_state:
+      default: "Nada aqui ainda"
+
+  devise:
+    sessions:
+      new:
+        subtitle: "Gestor de Finanças Pessoais"
+        sign_in_heading: "Entre na sua conta"
+        sign_in: "Entrar"
+        no_account: "Não tem uma conta?"
+        sign_up: "Cadastre-se"
+        forgot_password: "Esqueceu a senha?"
+        remember_me: "Lembrar de mim"
+    registrations:
+      new:
+        create_account: "Crie sua conta"
+        sign_up: "Cadastrar"
+        name_placeholder: "Seu nome"
+        email_placeholder: "voce@exemplo.com"
+        password_placeholder: "••••••••"
+        password_label: "Senha"
+        password_hint: "+ caracteres"
+        confirm_password: "Confirmar Senha"
+        create_btn: "Criar conta"
+        have_account: "Já tem uma conta?"
+        sign_in: "Entrar"
+    passwords:
+      new:
+        title: "Esqueceu sua senha?"
+        send_instructions: "Enviar instruções para redefinir senha"
+      edit:
+        title: "Alterar sua senha"
+        new_password: "Nova senha"
+        password_hint: "caracteres no mínimo"
+        confirm_password: "Confirmar nova senha"
+        change_password: "Alterar minha senha"
+
+  # Flash messages
+  controllers:
+    settings:
+      profile_saved: "Configurações salvas com sucesso."
+      password_updated: "Senha atualizada com sucesso."
+    expenses:
+      created: "Despesa adicionada."
+      created_installments: "Despesa adicionada em %{count} parcelas."
+      updated: "Despesa atualizada."
+      destroyed: "Despesa excluída."
+    incomes:
+      created: "Receita adicionada."
+      updated: "Receita atualizada."
+      destroyed: "Receita excluída."
+    credit_cards:
+      created: "Cartão de crédito adicionado."
+      updated: "Cartão de crédito atualizado."
+      destroyed: "Cartão de crédito removido."
+    bank_accounts:
+      created: "Conta bancária adicionada."
+      updated: "Conta bancária atualizada."
+      destroyed: "Conta bancária removida."
+      cdi_queued: "Atualização do CDI agendada."
+    investments:
+      created: "Investimento adicionado."
+      updated: "Investimento atualizado."
+      destroyed: "Investimento removido."
+      price_queued_single: "Atualização de preço agendada para %{name}."
+      price_queued_all: "Atualização de preços agendada para todos os investimentos."
+    categories:
+      created: "Categoria criada."
+      updated: "Categoria atualizada."
+      destroyed: "Categoria excluída."
+    payees:
+      created: "Beneficiário criado."
+      updated: "Beneficiário atualizado."
+      destroyed: "Beneficiário excluído."
+    possessions:
+      created: "Bem adicionado."
+      updated: "Bem atualizado."
+      destroyed: "Bem removido."

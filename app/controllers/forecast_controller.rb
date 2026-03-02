@@ -29,7 +29,7 @@ class ForecastController < ApplicationController
 
     # Previous month actuals for comparison
     prev_month = @current_date - 1.month
-    @prev_month_label = prev_month.strftime("%B %Y")
+    @prev_month_label = I18n.l(prev_month, format: "%B %Y")
     @prev_month_total = current_user.expenses.for_month(prev_month).sum(:amount)
     @prev_month_by_category = current_user.expenses
       .for_month(prev_month)
@@ -44,7 +44,7 @@ class ForecastController < ApplicationController
     @projected_income = @recurring_incomes.sum(:amount)
     @projected_balance = @projected_income - @projected_total
 
-    # Chart data
-    @forecast_chart_data = @projected_by_category.map { |(name, _color), amt| [name, amt.to_f] }.to_h
+    # Chart data (with translated category names)
+    @forecast_chart_data = @projected_by_category.map { |(name, _color), amt| [I18n.t("category_names.#{name}", default: name), amt.to_f] }.to_h
   end
 end

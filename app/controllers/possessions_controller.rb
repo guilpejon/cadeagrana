@@ -21,7 +21,7 @@ class PossessionsController < ApplicationController
     @possession = current_user.possessions.build(possession_params)
 
     if @possession.save
-      redirect_to possessions_path, notice: "Possession added."
+      redirect_to possessions_path, notice: t("controllers.possessions.created")
     else
       render :new, status: :unprocessable_entity
     end
@@ -31,7 +31,7 @@ class PossessionsController < ApplicationController
 
   def update
     if @possession.update(possession_params)
-      redirect_to possessions_path, notice: "Possession updated."
+      redirect_to possessions_path, notice: t("controllers.possessions.updated")
     else
       render :edit, status: :unprocessable_entity
     end
@@ -39,7 +39,7 @@ class PossessionsController < ApplicationController
 
   def destroy
     @possession.destroy
-    redirect_to possessions_path, notice: "Possession removed."
+    redirect_to possessions_path, notice: t("controllers.possessions.destroyed")
   end
 
   private

@@ -8,23 +8,23 @@
       <div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0" style="background-color: #6C63FF;">
         <%= svg_icon "wallet", css_class: "w-4 h-4", stroke: "white" %>
       </div>
-      <span class="font-bold text-lg truncate" style="color: #E2E8F0;" data-sidebar-target="label">FinTrack</span>
+      <span class="font-bold text-lg truncate" style="color: #E2E8F0;" data-sidebar-target="label">Cade a Grana</span>
     </div>
   </div>
 
   <%# Navigation %>
   <% month_param = @current_date&.strftime('%Y-%m') %>
   <nav class="flex-1 overflow-y-auto px-3 py-4 space-y-1">
-    <%= render "layouts/nav_item", icon: "home", label: "Dashboard", path: root_path(month: month_param), active: controller_name == "dashboard" %>
-    <%= render "layouts/nav_item", icon: "credit-card", label: "Expenses", path: expenses_path(month: month_param), active: controller_name == "expenses" %>
-    <%= render "layouts/nav_item", icon: "wallet", label: "Income", path: incomes_path(month: month_param), active: controller_name == "incomes" %>
-    <%= render "layouts/nav_item", icon: "credit-card", label: "Credit Cards", path: credit_cards_path(month: month_param), active: controller_name == "credit_cards" %>
-    <%= render "layouts/nav_item", icon: "landmark", label: "Bank Accounts", path: bank_accounts_path(month: month_param), active: controller_name == "bank_accounts" %>
-    <%= render "layouts/nav_item", icon: "trending-up", label: "Investments", path: investments_path(month: month_param), active: controller_name == "investments" %>
-    <%= render "layouts/nav_item", icon: "layers", label: "Possessions", path: possessions_path, active: controller_name == "possessions" %>
-    <%= render "layouts/nav_item", icon: "bar-chart-2", label: "Forecast", path: forecast_path(month: month_param), active: controller_name == "forecast" %>
-    <%= render "layouts/nav_item", icon: "tag", label: "Categories", path: categories_path(month: month_param), active: controller_name == "categories" %>
-    <%= render "layouts/nav_item", icon: "settings", label: "Settings", path: edit_user_settings_path, active: controller_name == "settings" %>
+    <%= render "layouts/nav_item", icon: "home", label: t("layouts.sidebar.dashboard"), path: root_path(month: month_param), active: controller_name == "dashboard" %>
+    <%= render "layouts/nav_item", icon: "credit-card", label: t("layouts.sidebar.expenses"), path: expenses_path(month: month_param), active: controller_name == "expenses" %>
+    <%= render "layouts/nav_item", icon: "wallet", label: t("layouts.sidebar.income"), path: incomes_path(month: month_param), active: controller_name == "incomes" %>
+    <%= render "layouts/nav_item", icon: "credit-card", label: t("layouts.sidebar.credit_cards"), path: credit_cards_path(month: month_param), active: controller_name == "credit_cards" %>
+    <%= render "layouts/nav_item", icon: "landmark", label: t("layouts.sidebar.bank_accounts"), path: bank_accounts_path(month: month_param), active: controller_name == "bank_accounts" %>
+    <%= render "layouts/nav_item", icon: "trending-up", label: t("layouts.sidebar.investments"), path: investments_path(month: month_param), active: controller_name == "investments" %>
+    <%= render "layouts/nav_item", icon: "layers", label: t("layouts.sidebar.possessions"), path: possessions_path, active: controller_name == "possessions" %>
+    <%= render "layouts/nav_item", icon: "bar-chart-2", label: t("layouts.sidebar.forecast"), path: forecast_path(month: month_param), active: controller_name == "forecast" %>
+    <%= render "layouts/nav_item", icon: "tag", label: t("layouts.sidebar.categories"), path: categories_path(month: month_param), active: controller_name == "categories" %>
+    <%= render "layouts/nav_item", icon: "settings", label: t("layouts.sidebar.settings"), path: edit_user_settings_path, active: controller_name == "settings" %>
   </nav>
 
   <%# User section %>
@@ -40,7 +40,7 @@
     </div>
     <%= link_to destroy_user_session_path, data: { turbo_method: :delete }, class: "flex items-center gap-3 w-full px-3 py-2 rounded-lg text-sm font-medium transition-colors hover:bg-white/5", style: "color: #8892A4;" do %>
       <%= svg_icon "log-out", css_class: "w-4 h-4 flex-shrink-0" %>
-      <span data-sidebar-target="label">Sign out</span>
+      <span data-sidebar-target="label"><%= t("layouts.sidebar.sign_out") %></span>
     <% end %>
   </div>
 </aside>

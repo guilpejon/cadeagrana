@@ -29,7 +29,7 @@ class ExpensesController < ApplicationController
     else
       @expense = current_user.expenses.build(expense_params)
       if @expense.save
-        redirect_to expenses_path, notice: "Expense added."
+        redirect_to expenses_path, notice: t("controllers.expenses.created")
       else
         render_new_with_collections
       end
@@ -45,7 +45,7 @@ class ExpensesController < ApplicationController
     resolve_payee!
     if @expense.update(expense_params)
       propagate_payee_to_installment_group!
-      redirect_to expenses_path, notice: "Expense updated."
+      redirect_to expenses_path, notice: t("controllers.expenses.updated")
     else
       @categories = current_user.categories.order(:name)
       @credit_cards = current_user.credit_cards.order(:name)
@@ -56,7 +56,7 @@ class ExpensesController < ApplicationController
   def destroy
     @expense.destroy
     respond_to do |format|
-      format.html { redirect_to expenses_path, notice: "Expense deleted." }
+      format.html { redirect_to expenses_path, notice: t("controllers.expenses.destroyed") }
       format.turbo_stream { render turbo_stream: turbo_stream.remove("expense_#{@expense.id}") }
     end
   end
@@ -124,7 +124,7 @@ class ExpensesController < ApplicationController
 
     if records.all?(&:valid?)
       ActiveRecord::Base.transaction { records.each(&:save!) }
-      redirect_to expenses_path, notice: "Expense added in #{total_installments} installments."
+      redirect_to expenses_path, notice: t("controllers.expenses.created_installments", count: total_installments)
     else
       @expense = records.first
       render_new_with_collections

@@ -1,31 +1,499 @@
-# Files in the config/locales directory are used for internationalization and
-# are automatically loaded by Rails. If you want to use locales other than
-# English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t "hello"
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t("hello") %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more about the API, please read the Rails Internationalization guide
-# at https://guides.rubyonrails.org/i18n.html.
-#
-# Be aware that YAML interprets the following case-insensitive strings as
-# booleans: `true`, `false`, `on`, `off`, `yes`, `no`. Therefore, these strings
-# must be quoted to be interpreted as strings. For example:
-#
-#     en:
-#       "yes": yup
-#       enabled: "ON"
-
 en:
-  hello: "Hello world"
+  app:
+    name: "Cade a Grana"
+
+  date:
+    month_names:
+      - ~
+      - January
+      - February
+      - March
+      - April
+      - May
+      - June
+      - July
+      - August
+      - September
+      - October
+      - November
+      - December
+    abbr_month_names:
+      - ~
+      - Jan
+      - Feb
+      - Mar
+      - Apr
+      - May
+      - Jun
+      - Jul
+      - Aug
+      - Sep
+      - Oct
+      - Nov
+      - Dec
+
+  category_names:
+    Housing: "Housing"
+    Food: "Food"
+    Transport: "Transport"
+    Health: "Health"
+    Entertainment: "Entertainment"
+    Shopping: "Shopping"
+    Education: "Education"
+    Utilities: "Utilities"
+    Travel: "Travel"
+    Other: "Other"
+
+  layouts:
+    sidebar:
+      dashboard: "Dashboard"
+      expenses: "Expenses"
+      income: "Income"
+      credit_cards: "Credit Cards"
+      bank_accounts: "Bank Accounts"
+      investments: "Investments"
+      possessions: "Possessions"
+      forecast: "Forecast"
+      categories: "Categories"
+      settings: "Settings"
+      sign_out: "Sign out"
+    topbar:
+      back: "Back"
+      add_expense: "Add Expense"
+    mobile_nav:
+      home: "Home"
+      expenses: "Expenses"
+      income: "Income"
+      invest: "Invest"
+      forecast: "Forecast"
+
+  dashboard:
+    total_income: "Total Income"
+    expenses: "Expenses"
+    net_balance: "Net Balance"
+    income_minus_expenses: "Income - Expenses"
+    card_bills: "Card Bills"
+    bank_balance: "Bank Balance"
+    view_accounts: "View accounts"
+    possessions: "Possessions"
+    view_possessions: "View possessions"
+    spending_by_category: "Spending by Category"
+    cash_flow: "Cash Flow — Last 6 Months"
+    income_label: "Income"
+    expenses_label: "Expenses"
+    spending_by_payee: "Spending by Payee"
+    recent_transactions: "Recent Transactions"
+    view_all: "View all"
+    no_expenses_month: "No expenses recorded this month"
+    no_data_6_months: "No data for the last 6 months"
+    no_payees_month: "No payees assigned to expenses this month"
+    no_recent_transactions: "No recent transactions"
+    card_count:
+      one: "1 card"
+      other: "%{count} cards"
+
+  expenses:
+    index:
+      title: "Expenses"
+      total: "Total:"
+      add_expense: "Add Expense"
+      no_expenses: "No expenses this month"
+      add_first: "Add your first expense"
+    new:
+      title: "New Expense"
+      quick_title: "Quick Add Expense"
+    edit:
+      title: "Edit Expense"
+    form:
+      amount: "Amount *"
+      payment_method: "Payment Method"
+      cash: "Cash"
+      pix: "PIX"
+      boleto: "Boleto"
+      credit_card: "Credit Card"
+      category: "Category *"
+      payee: "Payee"
+      payee_placeholder: "Search or create payee..."
+      description: "Description"
+      description_placeholder: "What did you spend on?"
+      date: "Date"
+      type: "Type"
+      variable: "Variable"
+      fixed: "Fixed"
+      select_card: "— Select Card —"
+      installments: "Installments"
+      per_installment: "Per installment:"
+      installment_label: "Installment"
+      installment_note: "— only this installment will be updated"
+      recurring: "Recurring expense"
+      add: "Add Expense"
+      update: "Update Expense"
+      cancel: "Cancel"
+    expense:
+      delete_confirm: "Delete this expense?"
+
+  incomes:
+    index:
+      title: "Income"
+      total: "Total:"
+      add: "Add Income"
+      no_income: "No income recorded this month"
+      add_first: "Add income"
+    new:
+      title: "New Income"
+    edit:
+      title: "Edit Income"
+    form:
+      description: "Description *"
+      description_placeholder: "e.g. Monthly Salary"
+      amount: "Amount *"
+      date: "Date *"
+      type: "Type"
+      salary: "Salary"
+      freelance: "Freelance"
+      dividend: "Dividend"
+      other: "Other"
+      recurring: "Recurring income"
+      add: "Add Income"
+      update: "Update Income"
+      cancel: "Cancel"
+    income:
+      delete_confirm: "Delete this income?"
+
+  credit_cards:
+    index:
+      title: "Credit Cards"
+      add: "Add Card"
+      current_bill: "Current Bill"
+      limit: "Limit"
+      billing_due: "Billing / Due"
+      day: "Day"
+      usage: "Usage"
+      edit: "Edit"
+      delete_confirm: "Remove this card?"
+      no_cards: "No credit cards added yet"
+      add_first: "Add your first card"
+    new:
+      title: "Add Credit Card"
+    edit:
+      title: "Edit Card"
+    form:
+      card_name: "Card Name *"
+      card_name_placeholder: "e.g. Nubank Platinum"
+      brand: "Brand"
+      select_brand: "Select brand"
+      last_four: "Last 4 digits"
+      credit_limit: "Credit Limit (R$)"
+      billing_day: "Billing Day"
+      due_day: "Due Day"
+      color: "Card Color"
+      color_hint: "Choose a color for your card"
+      add: "Add Card"
+      update: "Update Card"
+      cancel: "Cancel"
+    brands:
+      visa: "Visa"
+      mastercard: "Mastercard"
+      amex: "Amex"
+      elo: "Elo"
+      hipercard: "Hipercard"
+      other: "Other"
+
+  bank_accounts:
+    index:
+      title: "Bank Accounts"
+      refresh_cdi: "Refresh CDI"
+      add: "Add Account"
+      cdi_rate_annual: "CDI Rate (Annual)"
+      cdi_pa: "% p.a."
+      as_of: "as of"
+      updated: "updated"
+      ago: "ago"
+      cdi_not_cached: 'CDI rate not cached — click "Refresh CDI" to fetch the current rate from Brazil''s Central Bank.'
+      total_balance: "Total Balance"
+      est_monthly_interest: "Est. Monthly Interest"
+      est_yearly_interest: "Est. Yearly Interest"
+      name: "Name"
+      bank: "Bank"
+      balance: "Balance"
+      interest_rate: "Interest Rate"
+      actions: "Actions"
+      no_accounts: "No bank accounts added yet"
+      add_first: "Add your first account"
+    new:
+      title: "Add Bank Account"
+    edit:
+      title: "Edit Bank Account"
+    form:
+      name: "Name *"
+      name_placeholder: "e.g. Main Checking"
+      bank_name: "Bank Name"
+      bank_name_placeholder: "e.g. Nubank"
+      account_type: "Account Type *"
+      checking: "Checking"
+      savings: "Savings"
+      other: "Other"
+      balance: "Balance (R$)"
+      rate_type: "Rate Type"
+      fixed_rate: "Fixed Rate (% p.a.)"
+      cdi_percent: "% of CDI"
+      interest_rate: "Interest Rate (% p.a.)"
+      cdi_multiplier: "CDI Multiplier (%)"
+      current_cdi: "Current CDI:"
+      pa: "% p.a."
+      as_of: "(as of"
+      updated: "updated"
+      ago: "ago)"
+      cdi_not_available: 'CDI rate not available — click "Refresh CDI" on the accounts page.'
+      color: "Color"
+      add: "Add Account"
+      update: "Update Account"
+      cancel: "Cancel"
+
+  investments:
+    index:
+      title: "Investments"
+      refresh_prices: "Refresh Prices"
+      add: "Add Investment"
+      total_invested: "Total Invested"
+      current_value: "Current Value"
+      pl: "P&L"
+      return: "Return"
+      stocks: "Stocks"
+      crypto: "Crypto"
+      funds: "Funds"
+      name_ticker: "Name / Ticker"
+      qty: "Qty"
+      avg_price: "Avg Price"
+      curr_price: "Curr. Price"
+      total_value: "Total Value"
+      no_investments: "No investments added yet"
+      add_first: "Add your first investment"
+    new:
+      title: "Add Investment"
+      note: "Stock prices are auto-fetched from brapi.dev (Brazilian stocks). Crypto prices from CoinGecko. Use the ticker field to enable auto-price updates."
+    edit:
+      title: "Edit Investment"
+    form:
+      name: "Name *"
+      name_placeholder: "e.g. Petrobras"
+      ticker: "Ticker / ID"
+      ticker_placeholder: "PETR4 or bitcoin"
+      type: "Type *"
+      stock: "Stock / FII"
+      crypto: "Crypto"
+      fund: "Fund"
+      quantity: "Quantity"
+      avg_price: "Avg Price (R$)"
+      current_price: "Current Price (R$) — auto-updated via API"
+      add: "Add Investment"
+      update: "Update Investment"
+      cancel: "Cancel"
+
+  categories:
+    index:
+      title: "Categories"
+      new: "New Category"
+      delete_confirm: "Delete this category? Expenses will lose their category."
+      no_categories: "No categories yet"
+    new:
+      title: "New Category"
+    edit:
+      title: "Edit Category"
+    form:
+      name: "Name *"
+      name_placeholder: "e.g. Subscriptions"
+      color: "Color *"
+      icon: "Icon"
+      add: "Create Category"
+      update: "Update Category"
+      cancel: "Cancel"
+
+  payees:
+    index:
+      title: "Payees"
+      new: "New Payee"
+      delete_confirm: "Delete this payee?"
+      no_payees: "No payees yet"
+    new:
+      title: "New Payee"
+    edit:
+      title: "Edit Payee"
+    form:
+      name: "Name *"
+      name_placeholder: "e.g. Amazon, Netflix, Landlord"
+      add: "Create Payee"
+      update: "Update Payee"
+      cancel: "Cancel"
+
+  possessions:
+    index:
+      title: "Possessions"
+      add: "Add Possession"
+      total_items: "Total Items"
+      total_purchase_value: "Total Purchase Value"
+      total_current_value: "Total Current Value"
+      net_gain_loss: "Net Gain / Loss"
+      name: "Name"
+      purchase_price: "Purchase Price"
+      current_value: "Current Value"
+      gain_loss: "Gain / Loss"
+      actions: "Actions"
+      delete_confirm: "Remove this possession?"
+      no_possessions: "No possessions added yet"
+      add_first: "Add your first possession"
+    new:
+      title: "Add Possession"
+    edit:
+      title: "Edit Possession"
+    form:
+      name: "Name *"
+      name_placeholder: "e.g. Honda Civic"
+      type: "Type *"
+      vehicle: "Vehicle"
+      electronics: "Electronics"
+      real_estate: "Real Estate"
+      furniture: "Furniture"
+      jewelry: "Jewelry"
+      other: "Other"
+      color: "Color"
+      purchase_price: "Purchase Price"
+      current_value: "Current Value"
+      purchase_date: "Purchase Date"
+      currency: "Currency"
+      brl: "BRL (R$)"
+      usd: "USD ($)"
+      eur: "EUR (€)"
+      notes: "Notes"
+      notes_placeholder: "Optional notes about this item..."
+      add: "Add Possession"
+      update: "Update Possession"
+      cancel: "Cancel"
+
+  forecast:
+    index:
+      title: "Forecast"
+      projection_for: "Expense projection for"
+      projected_income: "Projected Income"
+      recurring_source: "recurring source"
+      recurring_sources: "sources"
+      projected_expenses: "Projected Expenses"
+      recurring: "recurring"
+      installment: "installment"
+      projected_balance: "Projected Balance"
+      vs: "vs"
+      in: "in"
+      projected_by_category: "Projected Spending by Category"
+      no_recurring: "No recurring expenses found"
+      recurring_expenses: "Recurring Expenses"
+      day: "Day"
+      no_recurring_yet: "No recurring expenses yet"
+      recurring_hint: 'Mark expenses as "recurring" when adding them to see your forecast here.'
+      installment_expenses: "Installment Expenses"
+      actuals: "Actuals —"
+
+  settings:
+    edit:
+      title: "Settings"
+      subtitle: "Manage your account and preferences"
+      profile_section: "Profile"
+      name: "Name"
+      name_placeholder: "Your name"
+      email: "Email"
+      email_placeholder: "your@email.com"
+      currency: "Currency"
+      language: "Language"
+      save_changes: "Save Changes"
+      password_section: "Change Password"
+      current_password: "Current Password"
+      new_password: "New Password"
+      password_hint: "Min 6 characters"
+      confirm_password: "Confirm New Password"
+      update_password: "Update Password"
+      danger_section: "Danger Zone"
+      sign_out_all: "Sign out of all devices"
+      sign_out_description: "Ends all active sessions"
+      sign_out: "Sign Out"
+      preferences_section: "Preferences"
+      language_english: "English"
+      language_pt_br: "Português (Brasil)"
+
+  shared:
+    empty_state:
+      default: "Nothing here yet"
+
+  devise:
+    sessions:
+      new:
+        subtitle: "Personal Finance Manager"
+        sign_in_heading: "Sign in to your account"
+        sign_in: "Sign in"
+        no_account: "Don't have an account?"
+        sign_up: "Sign up"
+        forgot_password: "Forgot password?"
+        remember_me: "Remember me"
+    registrations:
+      new:
+        create_account: "Create your account"
+        sign_up: "Sign up"
+        name_placeholder: "Your name"
+        email_placeholder: "you@example.com"
+        password_placeholder: "••••••••"
+        password_label: "Password"
+        password_hint: "+ characters"
+        confirm_password: "Confirm Password"
+        create_btn: "Create account"
+        have_account: "Already have an account?"
+        sign_in: "Sign in"
+    passwords:
+      new:
+        title: "Forgot your password?"
+        send_instructions: "Send me password reset instructions"
+      edit:
+        title: "Change your password"
+        new_password: "New password"
+        password_hint: "characters minimum"
+        confirm_password: "Confirm new password"
+        change_password: "Change my password"
+
+  # Flash messages
+  controllers:
+    settings:
+      profile_saved: "Settings saved successfully."
+      password_updated: "Password updated successfully."
+    expenses:
+      created: "Expense added."
+      created_installments: "Expense added in %{count} installments."
+      updated: "Expense updated."
+      destroyed: "Expense deleted."
+    incomes:
+      created: "Income added."
+      updated: "Income updated."
+      destroyed: "Income deleted."
+    credit_cards:
+      created: "Credit card added."
+      updated: "Credit card updated."
+      destroyed: "Credit card removed."
+    bank_accounts:
+      created: "Bank account added."
+      updated: "Bank account updated."
+      destroyed: "Bank account removed."
+      cdi_queued: "CDI rate refresh queued."
+    investments:
+      created: "Investment added."
+      updated: "Investment updated."
+      destroyed: "Investment removed."
+      price_queued_single: "Price refresh queued for %{name}."
+      price_queued_all: "Price refresh queued for all investments."
+    categories:
+      created: "Category created."
+      updated: "Category updated."
+      destroyed: "Category deleted."
+    payees:
+      created: "Payee created."
+      updated: "Payee updated."
+      destroyed: "Payee deleted."
+    possessions:
+      created: "Possession added."
+      updated: "Possession updated."
+      destroyed: "Possession removed."

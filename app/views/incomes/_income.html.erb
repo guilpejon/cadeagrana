@@ -22,7 +22,7 @@
       <%= svg_icon "edit", css_class: "w-3.5 h-3.5" %>
     <% end %>
     <%= button_to income_path(income), method: :delete,
-        form: { data: { turbo_confirm: "Delete this income?" } },
+        form: { data: { turbo_confirm: t("incomes.income.delete_confirm") } },
         class: "p-1.5 rounded-lg hover:bg-white/5 transition-colors", style: "color: #8892A4; background: none; border: none; cursor: pointer;" do %>
       <%= svg_icon "trash-2", css_class: "w-3.5 h-3.5" %>
     <% end %>

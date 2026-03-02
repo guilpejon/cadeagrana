@@ -27,7 +27,7 @@ class InvestmentsController < ApplicationController
 
     if @investment.save
       Investments::FetchPriceJob.perform_later(@investment.id) if @investment.ticker.present?
-      redirect_to investments_path, notice: "Investment added."
+      redirect_to investments_path, notice: t("controllers.investments.created")
     else
       render :new, status: :unprocessable_entity
     end
@@ -37,7 +37,7 @@ class InvestmentsController < ApplicationController
 
   def update
     if @investment.update(investment_params)
-      redirect_to investments_path, notice: "Investment updated."
+      redirect_to investments_path, notice: t("controllers.investments.updated")
     else
       render :edit, status: :unprocessable_entity
     end
@@ -45,19 +45,19 @@ class InvestmentsController < ApplicationController
 
   def destroy
     @investment.destroy
-    redirect_to investments_path, notice: "Investment removed."
+    redirect_to investments_path, notice: t("controllers.investments.destroyed")
   end
 
   def refresh_price
     Investments::FetchPriceJob.perform_later(@investment.id)
-    redirect_to investments_path, notice: "Price refresh queued for #{@investment.name}."
+    redirect_to investments_path, notice: t("controllers.investments.price_queued_single", name: @investment.name)
   end
 
   def refresh_all_prices
     current_user.investments.where.not(ticker: [nil, ""]).each do |inv|
       Investments::FetchPriceJob.perform_later(inv.id)
     end
-    redirect_to investments_path, notice: "Price refresh queued for all investments."
+    redirect_to investments_path, notice: t("controllers.investments.price_queued_all")
   end
 
   private

@@ -27,11 +27,11 @@
 
     <div class="flex items-center gap-2 min-w-44 justify-center">
       <span class="text-sm font-semibold" style="color: #E2E8F0;">
-        <%= @current_date&.strftime("%B %Y") || Date.current.strftime("%B %Y") %>
+        <%= l(@current_date || Date.current, format: "%B %Y") %>
       </span>
       <% unless on_today %>
         <%= link_to request.path + "?month=#{today_month.strftime('%Y-%m')}", class: "px-2 py-0.5 rounded text-xs font-medium transition-colors hover:opacity-80", style: "background-color: rgba(108,99,255,0.2); color: #6C63FF;" do %>
-          Back
+          <%= t("layouts.topbar.back") %>
         <% end %>
       <% end %>
     </div>
@@ -51,7 +51,7 @@
   <div class="hidden lg:flex items-center gap-3">
     <%= link_to new_expense_path(quick: true), class: "flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-colors hover:opacity-90", style: "background-color: #6C63FF; color: white;", data: { turbo_frame: "modal_content" }, id: "quick-add-btn" do %>
       <%= svg_icon "plus", css_class: "w-4 h-4", stroke: "white" %>
-      Add Expense
+      <%= t("layouts.topbar.add_expense") %>
     <% end %>
   </div>
 </header>

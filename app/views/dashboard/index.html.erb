@@ -1,4 +1,4 @@
-<%# Dashboard – FinTrack %>
+<%# Dashboard – Cade a Grana %>
 <div class="space-y-6">
 
   <%# Summary Cards %>
@@ -6,71 +6,71 @@
     <%# Total Income %>
     <div class="rounded-xl border p-4" style="background-color: #1E2130; border-color: #2A2F45;">
       <div class="flex items-center justify-between mb-3">
-        <span class="text-xs font-medium uppercase tracking-wide" style="color: #8892A4;">Total Income</span>
+        <span class="text-xs font-medium uppercase tracking-wide" style="color: #8892A4;"><%= t("dashboard.total_income") %></span>
         <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background-color: rgba(0,212,170,0.15);">
           <%= svg_icon "wallet", css_class: "w-4 h-4", stroke: "#00D4AA" %>
         </div>
       </div>
       <p class="text-xl font-bold" style="color: #00D4AA;"><%= format_currency(@total_income) %></p>
-      <p class="text-xs mt-1" style="color: #8892A4;"><%= @current_date.strftime("%B %Y") %></p>
+      <p class="text-xs mt-1" style="color: #8892A4;"><%= l(@current_date, format: "%B %Y") %></p>
     </div>
 
     <%# Total Expenses %>
     <div class="rounded-xl border p-4" style="background-color: #1E2130; border-color: #2A2F45;">
       <div class="flex items-center justify-between mb-3">
-        <span class="text-xs font-medium uppercase tracking-wide" style="color: #8892A4;">Expenses</span>
+        <span class="text-xs font-medium uppercase tracking-wide" style="color: #8892A4;"><%= t("dashboard.expenses") %></span>
         <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background-color: rgba(255,107,107,0.15);">
           <%= svg_icon "credit-card", css_class: "w-4 h-4", stroke: "#FF6B6B" %>
         </div>
       </div>
       <p class="text-xl font-bold" style="color: #FF6B6B;"><%= format_currency(@total_expenses) %></p>
-      <p class="text-xs mt-1" style="color: #8892A4;"><%= @current_date.strftime("%B %Y") %></p>
+      <p class="text-xs mt-1" style="color: #8892A4;"><%= l(@current_date, format: "%B %Y") %></p>
     </div>
 
     <%# Net Balance %>
     <div class="rounded-xl border p-4" style="background-color: #1E2130; border-color: #2A2F45;">
       <div class="flex items-center justify-between mb-3">
-        <span class="text-xs font-medium uppercase tracking-wide" style="color: #8892A4;">Net Balance</span>
+        <span class="text-xs font-medium uppercase tracking-wide" style="color: #8892A4;"><%= t("dashboard.net_balance") %></span>
         <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background-color: rgba(108,99,255,0.15);">
           <%= svg_icon "trending-up", css_class: "w-4 h-4", stroke: "#6C63FF" %>
         </div>
       </div>
       <p class="text-xl font-bold" style="color: <%= @net_balance >= 0 ? '#00D4AA' : '#FF6B6B' %>;"><%= format_currency(@net_balance) %></p>
-      <p class="text-xs mt-1" style="color: #8892A4;">Income - Expenses</p>
+      <p class="text-xs mt-1" style="color: #8892A4;"><%= t("dashboard.income_minus_expenses") %></p>
     </div>
 
     <%# Credit Card Bills %>
     <div class="rounded-xl border p-4" style="background-color: #1E2130; border-color: #2A2F45;">
       <div class="flex items-center justify-between mb-3">
-        <span class="text-xs font-medium uppercase tracking-wide" style="color: #8892A4;">Card Bills</span>
+        <span class="text-xs font-medium uppercase tracking-wide" style="color: #8892A4;"><%= t("dashboard.card_bills") %></span>
         <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background-color: rgba(247,183,49,0.15);">
           <%= svg_icon "credit-card", css_class: "w-4 h-4", stroke: "#F7B731" %>
         </div>
       </div>
       <p class="text-xl font-bold" style="color: #F7B731;"><%= format_currency(@total_card_bills) %></p>
-      <p class="text-xs mt-1" style="color: #8892A4;"><%= @credit_cards.count %> card<%= @credit_cards.count == 1 ? "" : "s" %></p>
+      <p class="text-xs mt-1" style="color: #8892A4;"><%= t("dashboard.card_count", count: @credit_cards.count) %></p>
     </div>
     <%# Bank Accounts %>
     <div class="rounded-xl border p-4" style="background-color: #1E2130; border-color: #2A2F45;">
       <div class="flex items-center justify-between mb-3">
-        <span class="text-xs font-medium uppercase tracking-wide" style="color: #8892A4;">Bank Balance</span>
+        <span class="text-xs font-medium uppercase tracking-wide" style="color: #8892A4;"><%= t("dashboard.bank_balance") %></span>
         <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background-color: rgba(108,99,255,0.15);">
           <%= svg_icon "landmark", css_class: "w-4 h-4", stroke: "#6C63FF" %>
         </div>
       </div>
       <p class="text-xl font-bold" style="color: #6C63FF;"><%= format_currency(@total_bank_balance) %></p>
-      <p class="text-xs mt-1" style="color: #8892A4;"><%= link_to "View accounts", bank_accounts_path, style: "color: #6C63FF;" %></p>
+      <p class="text-xs mt-1" style="color: #8892A4;"><%= link_to t("dashboard.view_accounts"), bank_accounts_path, style: "color: #6C63FF;" %></p>
     </div>
     <%# Possessions %>
     <div class="rounded-xl border p-4" style="background-color: #1E2130; border-color: #2A2F45;">
       <div class="flex items-center justify-between mb-3">
-        <span class="text-xs font-medium uppercase tracking-wide" style="color: #8892A4;">Possessions</span>
+        <span class="text-xs font-medium uppercase tracking-wide" style="color: #8892A4;"><%= t("dashboard.possessions") %></span>
         <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background-color: rgba(167,139,250,0.15);">
           <%= svg_icon "layers", css_class: "w-4 h-4", stroke: "#A78BFA" %>
         </div>
       </div>
       <p class="text-xl font-bold" style="color: #A78BFA;"><%= format_currency(@total_possessions_value) %></p>
-      <p class="text-xs mt-1" style="color: #8892A4;"><%= link_to "View possessions", possessions_path, style: "color: #A78BFA;" %></p>
+      <p class="text-xs mt-1" style="color: #8892A4;"><%= link_to t("dashboard.view_possessions"), possessions_path, style: "color: #A78BFA;" %></p>
     </div>
   </div>
 
@@ -78,7 +78,7 @@
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
     <%# Spending by Category – Donut %>
     <div class="rounded-xl border p-5" style="background-color: #1E2130; border-color: #2A2F45;">
-      <h2 class="text-sm font-semibold mb-4" style="color: #E2E8F0;">Spending by Category</h2>
+      <h2 class="text-sm font-semibold mb-4" style="color: #E2E8F0;"><%= t("dashboard.spending_by_category") %></h2>
       <% if @spending_by_category.any? %>
         <%= pie_chart @spending_by_category.transform_values(&:to_f),
             donut: true,
@@ -93,17 +93,17 @@
               }
             } %>
       <% else %>
-        <%= render "shared/empty_state", message: "No expenses recorded this month" %>
+        <%= render "shared/empty_state", message: t("dashboard.no_expenses_month") %>
       <% end %>
     </div>
 
     <%# Monthly Cash Flow – Bar %>
     <div class="rounded-xl border p-5" style="background-color: #1E2130; border-color: #2A2F45;">
-      <h2 class="text-sm font-semibold mb-4" style="color: #E2E8F0;">Cash Flow — Last 6 Months</h2>
+      <h2 class="text-sm font-semibold mb-4" style="color: #E2E8F0;"><%= t("dashboard.cash_flow") %></h2>
       <% if @monthly_income.any? || @monthly_expenses.any? %>
         <%= bar_chart [
-              { name: "Income", data: @monthly_income },
-              { name: "Expenses", data: @monthly_expenses }
+              { name: t("dashboard.income_label"), data: @monthly_income },
+              { name: t("dashboard.expenses_label"), data: @monthly_expenses }
             ],
             colors: ["#00D4AA", "#FF6B6B"],
             library: {
@@ -118,29 +118,29 @@
               }
             } %>
       <% else %>
-        <%= render "shared/empty_state", message: "No data for the last 6 months" %>
+        <%= render "shared/empty_state", message: t("dashboard.no_data_6_months") %>
       <% end %>
     </div>
   </div>
 
   <%# Spending by Payee – Donut %>
   <div class="rounded-xl border p-5" style="background-color: #1E2130; border-color: #2A2F45;">
-    <h2 class="text-sm font-semibold mb-4" style="color: #E2E8F0;">Spending by Payee</h2>
+    <h2 class="text-sm font-semibold mb-4" style="color: #E2E8F0;"><%= t("dashboard.spending_by_payee") %></h2>
     <% if @spending_by_payee.any? %>
       <%= pie_chart @spending_by_payee.transform_values(&:to_f),
           donut: true, colors: @spending_by_payee_colors, legend: true,
           library: { plugins: { legend: { position: "bottom",
             labels: { color: "#8892A4", font: { size: 12 }, padding: 12 } } } } %>
     <% else %>
-      <%= render "shared/empty_state", message: "No payees assigned to expenses this month" %>
+      <%= render "shared/empty_state", message: t("dashboard.no_payees_month") %>
     <% end %>
   </div>
 
   <%# Recent Transactions %>
   <div class="rounded-xl border p-5" style="background-color: #1E2130; border-color: #2A2F45;">
     <div class="flex items-center justify-between mb-4">
-      <h2 class="text-sm font-semibold" style="color: #E2E8F0;">Recent Transactions</h2>
-      <%= link_to "View all", expenses_path, class: "text-xs font-medium hover:opacity-80 transition-opacity", style: "color: #6C63FF;" %>
+      <h2 class="text-sm font-semibold" style="color: #E2E8F0;"><%= t("dashboard.recent_transactions") %></h2>
+      <%= link_to t("dashboard.view_all"), expenses_path, class: "text-xs font-medium hover:opacity-80 transition-opacity", style: "color: #6C63FF;" %>
     </div>
 
     <% if @recent_transactions.any? %>
@@ -152,14 +152,14 @@
             </div>
             <div class="flex-1 min-w-0">
               <p class="text-sm font-medium truncate" style="color: #E2E8F0;"><%= expense.description %></p>
-              <p class="text-xs" style="color: #8892A4;"><%= expense.category.name %> · <%= expense.date.strftime("%d %b") %></p>
+              <p class="text-xs" style="color: #8892A4;"><%= category_display_name(expense.category) %> · <%= expense.date.strftime("%d %b") %></p>
             </div>
             <span class="text-sm font-semibold flex-shrink-0" style="color: #FF6B6B;"><%= format_currency(expense.amount) %></span>
           </div>
         <% end %>
       </div>
     <% else %>
-      <%= render "shared/empty_state", message: "No recent transactions" %>
+      <%= render "shared/empty_state", message: t("dashboard.no_recent_transactions") %>
     <% end %>
   </div>
 

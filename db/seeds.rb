@@ -1,11 +1,11 @@
-# Seeds — FinTrack
+# Seeds — Cade a Grana
 # Creates a demo user with realistic sample data for development
 
 puts "Creating demo user..."
 
-user = User.find_or_create_by!(email: "demo@fintrack.dev") do |u|
-  u.password = "password123"
-  u.password_confirmation = "password123"
+user = User.find_or_create_by!(email: "demo@cadeagrana.com.br") do |u|
+  u.password = "password"
+  u.password_confirmation = "password"
   u.name = "Demo User"
   u.currency = "BRL"
 end
@@ -84,7 +84,7 @@ expenses_data = [
   { desc: "Clothing",       amount: 280.00,  type: "variable", cat: shopping,      recurring: false, day: 18, card: inter },
   { desc: "Electricity",    amount: 145.00,  type: "fixed",    cat: utilities,     recurring: true,  day: 20, card: nil },
   { desc: "Spotify",        amount: 19.90,   type: "fixed",    cat: entertainment, recurring: true,  day: 3,  card: nubank },
-  { desc: "Pharmacy",       amount: 87.30,   type: "variable", cat: health,        recurring: false, day: 16, card: nil },
+  { desc: "Pharmacy",       amount: 87.30,   type: "variable", cat: health,        recurring: false, day: 16, card: nil }
 ]
 
 3.times do |i|
@@ -96,7 +96,7 @@ expenses_data = [
       date: month_date.change(day: e[:day])
     ) do |exp|
       base = e[:amount] + rand(-30.0..30.0).round(2)
-      exp.amount = [base, 1.0].max
+      exp.amount = [ base, 1.0 ].max
       exp.expense_type = e[:type]
       exp.category = e[:cat]
       exp.credit_card = e[:card]
@@ -112,8 +112,8 @@ puts "Creating sample investments..."
   { name: "Petrobras",        ticker: "PETR4",   type: "stock",  qty: 200,    avg: 38.50,  current: 41.20 },
   { name: "Vale",             ticker: "VALE3",   type: "stock",  qty: 100,    avg: 65.00,  current: 68.30 },
   { name: "Bitcoin",          ticker: "bitcoin", type: "crypto", qty: 0.025,  avg: 250000, current: 310000 },
-  { name: "Ethereum",         ticker: "ethereum",type: "crypto", qty: 0.5,    avg: 12000,  current: 14500 },
-  { name: "Tesouro Selic",    ticker: nil,       type: "fund",   qty: 1,      avg: 1580,   current: 1650 },
+  { name: "Ethereum",         ticker: "ethereum", type: "crypto", qty: 0.5,    avg: 12000,  current: 14500 },
+  { name: "Tesouro Selic",    ticker: nil,       type: "fund",   qty: 1,      avg: 1580,   current: 1650 }
 ].each do |inv|
   Investment.find_or_create_by!(user: user, name: inv[:name]) do |i|
     i.ticker = inv[:ticker]
@@ -126,4 +126,4 @@ puts "Creating sample investments..."
 end
 
 puts "\nSeeding complete!"
-puts "Login: demo@fintrack.dev / password123"
+puts "Login: demo@cadeagrana.com.br / password123"

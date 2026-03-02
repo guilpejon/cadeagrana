@@ -3,10 +3,10 @@
     <%= link_to investments_path, class: "p-2 rounded-lg hover:bg-white/5 transition-colors", style: "color: #8892A4;" do %>
       <%= svg_icon "chevron-left", css_class: "w-5 h-5" %>
     <% end %>
-    <h1 class="text-xl font-bold" style="color: #E2E8F0;">Add Investment</h1>
+    <h1 class="text-xl font-bold" style="color: #E2E8F0;"><%= t("investments.new.title") %></h1>
   </div>
   <div class="rounded-xl border p-6" style="background-color: #1E2130; border-color: #2A2F45;">
-    <p class="text-xs mb-4" style="color: #8892A4;">Stock prices are auto-fetched from brapi.dev (Brazilian stocks). Crypto prices from CoinGecko. Use the ticker field to enable auto-price updates.</p>
+    <p class="text-xs mb-4" style="color: #8892A4;"><%= t("investments.new.note") %></p>
     <%= render "form", investment: @investment %>
   </div>
 </div>

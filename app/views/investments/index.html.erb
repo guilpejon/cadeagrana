@@ -1,16 +1,16 @@
 <div class="space-y-5">
   <div class="flex items-center justify-between">
-    <h1 class="text-xl font-bold" style="color: #E2E8F0;">Investments</h1>
+    <h1 class="text-xl font-bold" style="color: #E2E8F0;"><%= t("investments.index.title") %></h1>
     <div class="flex items-center gap-2">
       <%= button_to refresh_all_prices_investments_path, method: :post,
           class: "flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors hover:bg-white/5",
           style: "background-color: #1E2130; border: 1px solid #2A2F45; color: #8892A4; cursor: pointer;" do %>
         <%= svg_icon "refresh-cw", css_class: "w-4 h-4" %>
-        Refresh Prices
+        <%= t("investments.index.refresh_prices") %>
       <% end %>
       <%= link_to new_investment_path, class: "flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-colors hover:opacity-90", style: "background-color: #6C63FF; color: white;" do %>
         <%= svg_icon "plus", css_class: "w-4 h-4", stroke: "white" %>
-        Add Investment
+        <%= t("investments.index.add") %>
       <% end %>
     </div>
   </div>
@@ -18,19 +18,19 @@
   <%# Summary cards %>
   <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
     <div class="rounded-xl border p-4" style="background-color: #1E2130; border-color: #2A2F45;">
-      <p class="text-xs font-medium uppercase tracking-wide mb-2" style="color: #8892A4;">Total Invested</p>
+      <p class="text-xs font-medium uppercase tracking-wide mb-2" style="color: #8892A4;"><%= t("investments.index.total_invested") %></p>
       <p class="text-lg font-bold" style="color: #E2E8F0;"><%= format_currency(@total_invested) %></p>
     </div>
     <div class="rounded-xl border p-4" style="background-color: #1E2130; border-color: #2A2F45;">
-      <p class="text-xs font-medium uppercase tracking-wide mb-2" style="color: #8892A4;">Current Value</p>
+      <p class="text-xs font-medium uppercase tracking-wide mb-2" style="color: #8892A4;"><%= t("investments.index.current_value") %></p>
       <p class="text-lg font-bold" style="color: #F7B731;"><%= format_currency(@current_value) %></p>
     </div>
     <div class="rounded-xl border p-4" style="background-color: #1E2130; border-color: #2A2F45;">
-      <p class="text-xs font-medium uppercase tracking-wide mb-2" style="color: #8892A4;">P&L</p>
+      <p class="text-xs font-medium uppercase tracking-wide mb-2" style="color: #8892A4;"><%= t("investments.index.pl") %></p>
       <p class="text-lg font-bold" style="color: <%= pnl_color(@total_pnl) %>;"><%= format_currency(@total_pnl) %></p>
     </div>
     <div class="rounded-xl border p-4" style="background-color: #1E2130; border-color: #2A2F45;">
-      <p class="text-xs font-medium uppercase tracking-wide mb-2" style="color: #8892A4;">Return</p>
+      <p class="text-xs font-medium uppercase tracking-wide mb-2" style="color: #8892A4;"><%= t("investments.index.return") %></p>
       <div class="flex items-center gap-1.5">
         <%= svg_icon(@total_pnl_percent >= 0 ? "arrow-up" : "arrow-down", css_class: "w-4 h-4", stroke: pnl_color(@total_pnl_percent)) %>
         <p class="text-lg font-bold" style="color: <%= pnl_color(@total_pnl_percent) %>;"><%= @total_pnl_percent %>%</p>
@@ -44,19 +44,19 @@
       <div class="rounded-xl border overflow-hidden" style="background-color: #1E2130; border-color: #2A2F45;">
         <div class="px-4 py-3 border-b" style="border-color: #2A2F45; background-color: rgba(42,47,69,0.4);">
           <h2 class="text-sm font-semibold capitalize" style="color: #E2E8F0;">
-            <%= type == "stock" ? "Stocks" : type == "crypto" ? "Crypto" : "Funds" %>
+            <%= type == "stock" ? t("investments.index.stocks") : type == "crypto" ? t("investments.index.crypto") : t("investments.index.funds") %>
             <span class="ml-2 text-xs font-normal" style="color: #8892A4;"><%= investments.count %></span>
           </h2>
         </div>
 
         <%# Table header %>
         <div class="hidden md:grid grid-cols-7 gap-3 px-4 py-2 text-xs font-medium uppercase tracking-wide border-b" style="color: #8892A4; border-color: #2A2F45;">
-          <div class="col-span-2">Name / Ticker</div>
-          <div class="text-right">Qty</div>
-          <div class="text-right">Avg Price</div>
-          <div class="text-right">Curr. Price</div>
-          <div class="text-right">Total Value</div>
-          <div class="text-right">P&L</div>
+          <div class="col-span-2"><%= t("investments.index.name_ticker") %></div>
+          <div class="text-right"><%= t("investments.index.qty") %></div>
+          <div class="text-right"><%= t("investments.index.avg_price") %></div>
+          <div class="text-right"><%= t("investments.index.curr_price") %></div>
+          <div class="text-right"><%= t("investments.index.total_value") %></div>
+          <div class="text-right"><%= t("investments.index.pl") %></div>
         </div>
 
         <div class="divide-y" style="border-color: #2A2F45;">
@@ -134,8 +134,8 @@
   <% else %>
     <div class="rounded-xl border flex flex-col items-center justify-center py-16 gap-3" style="background-color: #1E2130; border-color: #2A2F45;">
       <%= svg_icon "trending-up", css_class: "w-12 h-12 opacity-20", stroke: "#8892A4" %>
-      <p class="text-sm font-medium" style="color: #8892A4;">No investments added yet</p>
-      <%= link_to "Add your first investment", new_investment_path, class: "text-sm font-medium hover:opacity-80", style: "color: #6C63FF;" %>
+      <p class="text-sm font-medium" style="color: #8892A4;"><%= t("investments.index.no_investments") %></p>
+      <%= link_to t("investments.index.add_first"), new_investment_path, class: "text-sm font-medium hover:opacity-80", style: "color: #6C63FF;" %>
     </div>
   <% end %>
 </div>

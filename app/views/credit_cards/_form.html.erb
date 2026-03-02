@@ -6,27 +6,27 @@
   <% end %>
 
   <div>
-    <label class="block text-xs font-medium mb-1.5" style="color: #8892A4;">Card Name *</label>
-    <%= f.text_field :name, class: "w-full px-3 py-2.5 rounded-lg border text-sm outline-none transition-all", style: "background-color: #0F1117; border-color: #2A2F45; color: #E2E8F0;", placeholder: "e.g. Nubank Platinum", autofocus: true %>
+    <label class="block text-xs font-medium mb-1.5" style="color: #8892A4;"><%= t("credit_cards.form.card_name") %></label>
+    <%= f.text_field :name, class: "w-full px-3 py-2.5 rounded-lg border text-sm outline-none transition-all", style: "background-color: #0F1117; border-color: #2A2F45; color: #E2E8F0;", placeholder: t("credit_cards.form.card_name_placeholder"), autofocus: true %>
   </div>
 
   <div class="grid grid-cols-2 gap-3">
     <div>
-      <label class="block text-xs font-medium mb-1.5" style="color: #8892A4;">Brand</label>
+      <label class="block text-xs font-medium mb-1.5" style="color: #8892A4;"><%= t("credit_cards.form.brand") %></label>
       <%= f.select :brand,
-          [["Visa", "visa"], ["Mastercard", "mastercard"], ["Amex", "amex"], ["Elo", "elo"], ["Hipercard", "hipercard"], ["Other", "other"]],
-          { include_blank: "Select brand" },
+          [[t("credit_cards.brands.visa"), "visa"], [t("credit_cards.brands.mastercard"), "mastercard"], [t("credit_cards.brands.amex"), "amex"], [t("credit_cards.brands.elo"), "elo"], [t("credit_cards.brands.hipercard"), "hipercard"], [t("credit_cards.brands.other"), "other"]],
+          { include_blank: t("credit_cards.form.select_brand") },
           class: "w-full px-3 py-2.5 rounded-lg border text-sm outline-none transition-all",
           style: "background-color: #0F1117; border-color: #2A2F45; color: #E2E8F0;" %>
     </div>
     <div>
-      <label class="block text-xs font-medium mb-1.5" style="color: #8892A4;">Last 4 digits</label>
+      <label class="block text-xs font-medium mb-1.5" style="color: #8892A4;"><%= t("credit_cards.form.last_four") %></label>
       <%= f.text_field :last4, maxlength: 4, class: "w-full px-3 py-2.5 rounded-lg border text-sm font-mono outline-none transition-all", style: "background-color: #0F1117; border-color: #2A2F45; color: #E2E8F0;", placeholder: "1234" %>
     </div>
   </div>
 
   <div>
-    <label class="block text-xs font-medium mb-1.5" style="color: #8892A4;">Credit Limit (R$)</label>
+    <label class="block text-xs font-medium mb-1.5" style="color: #8892A4;"><%= t("credit_cards.form.credit_limit") %></label>
     <div class="relative">
       <span class="absolute left-3 top-1/2 -translate-y-1/2 text-sm" style="color: #8892A4;">R$</span>
       <%= f.number_field :limit, step: "0.01", min: "0", class: "w-full pl-9 pr-3 py-2.5 rounded-lg border text-sm outline-none transition-all", style: "background-color: #0F1117; border-color: #2A2F45; color: #E2E8F0;", placeholder: "0,00" %>
@@ -35,25 +35,25 @@
 
   <div class="grid grid-cols-2 gap-3">
     <div>
-      <label class="block text-xs font-medium mb-1.5" style="color: #8892A4;">Billing Day</label>
+      <label class="block text-xs font-medium mb-1.5" style="color: #8892A4;"><%= t("credit_cards.form.billing_day") %></label>
       <%= f.number_field :billing_day, min: 1, max: 28, class: "w-full px-3 py-2.5 rounded-lg border text-sm outline-none transition-all", style: "background-color: #0F1117; border-color: #2A2F45; color: #E2E8F0;" %>
     </div>
     <div>
-      <label class="block text-xs font-medium mb-1.5" style="color: #8892A4;">Due Day</label>
+      <label class="block text-xs font-medium mb-1.5" style="color: #8892A4;"><%= t("credit_cards.form.due_day") %></label>
       <%= f.number_field :due_day, min: 1, max: 28, class: "w-full px-3 py-2.5 rounded-lg border text-sm outline-none transition-all", style: "background-color: #0F1117; border-color: #2A2F45; color: #E2E8F0;" %>
     </div>
   </div>
 
   <div>
-    <label class="block text-xs font-medium mb-1.5" style="color: #8892A4;">Card Color</label>
+    <label class="block text-xs font-medium mb-1.5" style="color: #8892A4;"><%= t("credit_cards.form.color") %></label>
     <div class="flex items-center gap-3">
       <%= f.color_field :color, class: "w-10 h-10 rounded-lg cursor-pointer border-0 p-0.5", style: "background-color: #0F1117;" %>
-      <span class="text-xs" style="color: #8892A4;">Choose a color for your card</span>
+      <span class="text-xs" style="color: #8892A4;"><%= t("credit_cards.form.color_hint") %></span>
     </div>
   </div>
 
   <div class="flex gap-3 pt-2">
-    <%= f.submit credit_card.new_record? ? "Add Card" : "Update Card", class: "flex-1 py-2.5 rounded-lg text-sm font-semibold cursor-pointer transition-colors hover:opacity-90", style: "background-color: #6C63FF; color: white;" %>
-    <%= link_to "Cancel", credit_cards_path, class: "px-4 py-2.5 rounded-lg text-sm font-medium transition-colors hover:bg-white/5", style: "color: #8892A4;" %>
+    <%= f.submit credit_card.new_record? ? t("credit_cards.form.add") : t("credit_cards.form.update"), class: "flex-1 py-2.5 rounded-lg text-sm font-semibold cursor-pointer transition-colors hover:opacity-90", style: "background-color: #6C63FF; color: white;" %>
+    <%= link_to t("credit_cards.form.cancel"), credit_cards_path, class: "px-4 py-2.5 rounded-lg text-sm font-medium transition-colors hover:bg-white/5", style: "color: #8892A4;" %>
   </div>
 <% end %>

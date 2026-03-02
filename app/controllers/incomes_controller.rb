@@ -18,7 +18,7 @@ class IncomesController < ApplicationController
     @income = current_user.incomes.build(income_params)
 
     if @income.save
-      redirect_to incomes_path, notice: "Income added."
+      redirect_to incomes_path, notice: t("controllers.incomes.created")
     else
       render :new, status: :unprocessable_entity
     end
@@ -28,7 +28,7 @@ class IncomesController < ApplicationController
 
   def update
     if @income.update(income_params)
-      redirect_to incomes_path, notice: "Income updated."
+      redirect_to incomes_path, notice: t("controllers.incomes.updated")
     else
       render :edit, status: :unprocessable_entity
     end
@@ -37,7 +37,7 @@ class IncomesController < ApplicationController
   def destroy
     @income.destroy
     respond_to do |format|
-      format.html { redirect_to incomes_path, notice: "Income deleted." }
+      format.html { redirect_to incomes_path, notice: t("controllers.incomes.destroyed") }
       format.turbo_stream { render turbo_stream: turbo_stream.remove("income_#{@income.id}") }
     end
   end

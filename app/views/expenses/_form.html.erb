@@ -11,7 +11,7 @@
 
   <%# Amount %>
   <div>
-    <label class="block text-xs font-medium mb-1.5" style="color: #8892A4;">Amount *</label>
+    <label class="block text-xs font-medium mb-1.5" style="color: #8892A4;"><%= t("expenses.form.amount") %></label>
     <div class="relative">
       <span class="absolute left-3 top-1/2 -translate-y-1/2 text-sm font-medium" style="color: #8892A4;">R$</span>
       <%= f.number_field :amount, step: "0.01", min: "0",
@@ -24,9 +24,9 @@
 
   <%# Payment Method %>
   <div>
-    <label class="block text-xs font-medium mb-2" style="color: #8892A4;">Payment Method</label>
+    <label class="block text-xs font-medium mb-2" style="color: #8892A4;"><%= t("expenses.form.payment_method") %></label>
     <div class="grid grid-cols-4 gap-2">
-      <% [["Cash", "cash"], ["PIX", "pix"], ["Boleto", "boleto"], ["Credit Card", "credit_card"]].each do |label, value| %>
+      <% [[t("expenses.form.cash"), "cash"], [t("expenses.form.pix"), "pix"], [t("expenses.form.boleto"), "boleto"], [t("expenses.form.credit_card"), "credit_card"]].each do |label, value| %>
         <label class="cursor-pointer">
           <%= f.radio_button :payment_method, value,
               class: "sr-only peer",
@@ -44,7 +44,7 @@
 
   <%# Category %>
   <div>
-    <label class="block text-xs font-medium mb-2" style="color: #8892A4;">Category *</label>
+    <label class="block text-xs font-medium mb-2" style="color: #8892A4;"><%= t("expenses.form.category") %></label>
     <div class="grid grid-cols-4 gap-2">
       <% categories.each do |cat| %>
         <label class="cursor-pointer">
@@ -56,7 +56,7 @@
             <div class="w-7 h-7 rounded-lg flex items-center justify-center" style="background-color: <%= cat.color %>22;">
               <%= svg_icon cat.icon, css_class: "w-3.5 h-3.5", stroke: cat.color %>
             </div>
-            <span class="text-xs text-center leading-tight" style="color: #8892A4;"><%= cat.name %></span>
+            <span class="text-xs text-center leading-tight" style="color: #8892A4;"><%= category_display_name(cat) %></span>
           </div>
         </label>
       <% end %>
@@ -65,12 +65,12 @@
 
   <%# Payee %>
   <div class="relative" data-controller="payee-autocomplete">
-    <label class="block text-xs font-medium mb-1.5" style="color: #8892A4;">Payee</label>
+    <label class="block text-xs font-medium mb-1.5" style="color: #8892A4;"><%= t("expenses.form.payee") %></label>
     <%= hidden_field_tag "expense[payee_id]", expense.payee_id,
         data: { payee_autocomplete_target: "payeeId" } %>
     <input type="text" name="expense[payee_name]"
            value="<%= expense.payee&.name %>"
-           placeholder="Search or create payee..."
+           placeholder="<%= t("expenses.form.payee_placeholder") %>"
            autocomplete="off"
            data-payee-autocomplete-target="payeeName"
            data-action="input->payee-autocomplete#search"
@@ -85,18 +85,18 @@
 
   <%# Description %>
   <div>
-    <label class="block text-xs font-medium mb-1.5" style="color: #8892A4;">Description</label>
+    <label class="block text-xs font-medium mb-1.5" style="color: #8892A4;"><%= t("expenses.form.description") %></label>
     <%= f.text_field :description,
         class: "w-full px-3 py-2.5 rounded-lg border text-sm outline-none focus:ring-2 transition-all",
         style: "background-color: #0F1117; border-color: #2A2F45; color: #E2E8F0;",
-        placeholder: "What did you spend on?" %>
+        placeholder: t("expenses.form.description_placeholder") %>
   </div>
 
   <%# Secondary fields %>
   <div class="grid grid-cols-2 gap-3">
     <%# Date %>
     <div>
-      <label class="block text-xs font-medium mb-1.5" style="color: #8892A4;">Date</label>
+      <label class="block text-xs font-medium mb-1.5" style="color: #8892A4;"><%= t("expenses.form.date") %></label>
       <div class="relative">
         <%= f.date_field :date,
             type: "text",
@@ -111,9 +111,9 @@
 
     <%# Type %>
     <div>
-      <label class="block text-xs font-medium mb-1.5" style="color: #8892A4;">Type</label>
+      <label class="block text-xs font-medium mb-1.5" style="color: #8892A4;"><%= t("expenses.form.type") %></label>
       <%= f.select :expense_type,
-          [["Variable", "variable"], ["Fixed", "fixed"]],
+          [[t("expenses.form.variable"), "variable"], [t("expenses.form.fixed"), "fixed"]],
           {},
           class: "w-full px-3 py-2.5 rounded-lg border text-sm outline-none focus:ring-2 transition-all",
           style: "background-color: #0F1117; border-color: #2A2F45; color: #E2E8F0;" %>
@@ -122,9 +122,9 @@
 
   <%# Credit Card picker (shown only when Credit Card selected) %>
   <div data-expense-payment-target="creditCardField" style="display: none;">
-    <label class="block text-xs font-medium mb-1.5" style="color: #8892A4;">Credit Card</label>
+    <label class="block text-xs font-medium mb-1.5" style="color: #8892A4;"><%= t("expenses.form.credit_card") %></label>
     <%= f.select :credit_card_id,
-        [["— Select Card —", ""]] + credit_cards.map { |c| [c.name, c.id] },
+        [[t("expenses.form.select_card"), ""]] + credit_cards.map { |c| [c.name, c.id] },
         { include_blank: false },
         class: "w-full px-3 py-2.5 rounded-lg border text-sm outline-none focus:ring-2 transition-all",
         style: "background-color: #0F1117; border-color: #2A2F45; color: #E2E8F0;" %>
@@ -134,14 +134,14 @@
   <% if expense.new_record? %>
     <%# New record: show editable installments count %>
     <div data-expense-payment-target="installmentsField" style="display: none;">
-      <label class="block text-xs font-medium mb-1.5" style="color: #8892A4;">Installments</label>
+      <label class="block text-xs font-medium mb-1.5" style="color: #8892A4;"><%= t("expenses.form.installments") %></label>
       <div class="flex items-center gap-3">
         <%= f.number_field :total_installments, min: 1, max: 60, value: 1,
             class: "w-24 px-3 py-2.5 rounded-lg border text-sm outline-none focus:ring-2 transition-all",
             style: "background-color: #0F1117; border-color: #2A2F45; color: #E2E8F0;",
             data: { expense_payment_target: "installments", action: "input->expense-payment#installmentsChanged" } %>
         <span class="text-xs" style="color: #8892A4;">
-          Per installment: <span data-expense-payment-target="perInstallmentDisplay" class="font-medium" style="color: #E2E8F0;">R$ 0,00</span>
+          <%= t("expenses.form.per_installment") %> <span data-expense-payment-target="perInstallmentDisplay" class="font-medium" style="color: #E2E8F0;">R$ 0,00</span>
         </span>
       </div>
     </div>
@@ -151,8 +151,8 @@
     <%= f.hidden_field :installment_number %>
     <%= f.hidden_field :installment_group_id %>
     <div class="px-3 py-2.5 rounded-lg border text-sm" style="background-color: rgba(245,158,11,0.08); border-color: rgba(245,158,11,0.3);">
-      <span style="color: #F59E0B;">Installment <%= expense.installment_label %></span>
-      <span class="ml-2" style="color: #8892A4;">— only this installment will be updated</span>
+      <span style="color: #F59E0B;"><%= t("expenses.form.installment_label") %> <%= expense.installment_label %></span>
+      <span class="ml-2" style="color: #8892A4;"><%= t("expenses.form.installment_note") %></span>
     </div>
   <% end %>
 
@@ -160,16 +160,16 @@
   <div class="flex items-center gap-3" data-expense-payment-target="recurringField">
     <%= f.check_box :recurring, class: "w-4 h-4 rounded", style: "accent-color: #6C63FF;",
         data: { expense_payment_target: "recurring", action: "change->expense-payment#recurringChanged" } %>
-    <label class="text-sm" style="color: #8892A4;">Recurring expense</label>
+    <label class="text-sm" style="color: #8892A4;"><%= t("expenses.form.recurring") %></label>
   </div>
 
   <%# Submit %>
   <div class="flex gap-3 pt-2">
-    <%= f.submit expense.new_record? ? "Add Expense" : "Update Expense",
+    <%= f.submit expense.new_record? ? t("expenses.form.add") : t("expenses.form.update"),
         class: "flex-1 py-2.5 rounded-lg text-sm font-semibold cursor-pointer transition-colors hover:opacity-90",
         style: "background-color: #6C63FF; color: white;" %>
     <% if defined?(cancel_path) && cancel_path %>
-      <%= link_to "Cancel", cancel_path, class: "px-4 py-2.5 rounded-lg text-sm font-medium transition-colors hover:bg-white/5", style: "color: #8892A4;" %>
+      <%= link_to t("expenses.form.cancel"), cancel_path, class: "px-4 py-2.5 rounded-lg text-sm font-medium transition-colors hover:bg-white/5", style: "color: #8892A4;" %>
     <% end %>
   </div>
 <% end %>

@@ -1,9 +1,9 @@
 <div class="space-y-4">
   <div class="flex items-center justify-between">
-    <h1 class="text-xl font-bold" style="color: #E2E8F0;">Categories</h1>
+    <h1 class="text-xl font-bold" style="color: #E2E8F0;"><%= t("categories.index.title") %></h1>
     <%= link_to new_category_path, class: "flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-colors hover:opacity-90", style: "background-color: #6C63FF; color: white;" do %>
       <%= svg_icon "plus", css_class: "w-4 h-4", stroke: "white" %>
-      New Category
+      <%= t("categories.index.new") %>
     <% end %>
   </div>
 
@@ -17,7 +17,7 @@
                 <%= svg_icon cat.icon, css_class: "w-4 h-4", stroke: cat.color %>
               </div>
               <div>
-                <p class="text-sm font-medium" style="color: #E2E8F0;"><%= cat.name %></p>
+                <p class="text-sm font-medium" style="color: #E2E8F0;"><%= category_display_name(cat) %></p>
                 <p class="text-xs font-mono" style="color: #8892A4;"><%= cat.color %></p>
               </div>
             </div>
@@ -26,7 +26,7 @@
                 <%= svg_icon "edit", css_class: "w-3.5 h-3.5" %>
               <% end %>
               <%= button_to category_path(cat), method: :delete,
-                  form: { data: { turbo_confirm: "Delete this category? Expenses will lose their category." } },
+                  form: { data: { turbo_confirm: t("categories.index.delete_confirm") } },
                   class: "p-1.5 rounded-lg hover:bg-white/5 transition-colors",
                   style: "color: #8892A4; background: none; border: none; cursor: pointer;" do %>
                 <%= svg_icon "trash-2", css_class: "w-3.5 h-3.5" %>
@@ -38,7 +38,7 @@
     <% else %>
       <div class="flex flex-col items-center justify-center py-16 gap-3">
         <%= svg_icon "tag", css_class: "w-12 h-12 opacity-20", stroke: "#8892A4" %>
-        <p class="text-sm font-medium" style="color: #8892A4;">No categories yet</p>
+        <p class="text-sm font-medium" style="color: #8892A4;"><%= t("categories.index.no_categories") %></p>
       </div>
     <% end %>
   </div>

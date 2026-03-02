@@ -1,31 +1,31 @@
 <div class="space-y-5">
   <div>
-    <h1 class="text-xl font-bold" style="color: #E2E8F0;">Forecast</h1>
-    <p class="text-sm mt-0.5" style="color: #8892A4;">Expense projection for <%= @current_date.strftime("%B %Y") %></p>
+    <h1 class="text-xl font-bold" style="color: #E2E8F0;"><%= t("forecast.index.title") %></h1>
+    <p class="text-sm mt-0.5" style="color: #8892A4;"><%= t("forecast.index.projection_for") %> <%= l(@current_date, format: "%B %Y") %></p>
   </div>
 
   <%# Projected summary cards %>
   <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
     <div class="rounded-xl border p-4" style="background-color: #1E2130; border-color: #2A2F45;">
-      <p class="text-xs font-medium uppercase tracking-wide mb-2" style="color: #8892A4;">Projected Income</p>
+      <p class="text-xs font-medium uppercase tracking-wide mb-2" style="color: #8892A4;"><%= t("forecast.index.projected_income") %></p>
       <p class="text-xl font-bold" style="color: #00D4AA;"><%= format_currency(@projected_income) %></p>
-      <p class="text-xs mt-1" style="color: #8892A4;"><%= @recurring_incomes.count %> recurring source<%= @recurring_incomes.count == 1 ? "" : "s" %></p>
+      <p class="text-xs mt-1" style="color: #8892A4;"><%= @recurring_incomes.count %> <%= @recurring_incomes.count == 1 ? t("forecast.index.recurring_source") : t("forecast.index.recurring_sources") %></p>
     </div>
     <div class="rounded-xl border p-4" style="background-color: #1E2130; border-color: #2A2F45;">
-      <p class="text-xs font-medium uppercase tracking-wide mb-2" style="color: #8892A4;">Projected Expenses</p>
+      <p class="text-xs font-medium uppercase tracking-wide mb-2" style="color: #8892A4;"><%= t("forecast.index.projected_expenses") %></p>
       <p class="text-xl font-bold" style="color: #FF6B6B;"><%= format_currency(@projected_total) %></p>
-      <p class="text-xs mt-1" style="color: #8892A4;"><%= @recurring_expenses.count %> recurring<% if @installment_expenses.any? %> · <%= @installment_expenses.count %> installment<% end %></p>
+      <p class="text-xs mt-1" style="color: #8892A4;"><%= @recurring_expenses.count %> <%= t("forecast.index.recurring") %><% if @installment_expenses.any? %> · <%= @installment_expenses.count %> <%= t("forecast.index.installment") %><% end %></p>
     </div>
     <div class="rounded-xl border p-4" style="background-color: #1E2130; border-color: #2A2F45;">
-      <p class="text-xs font-medium uppercase tracking-wide mb-2" style="color: #8892A4;">Projected Balance</p>
+      <p class="text-xs font-medium uppercase tracking-wide mb-2" style="color: #8892A4;"><%= t("forecast.index.projected_balance") %></p>
       <p class="text-xl font-bold" style="color: <%= @projected_balance >= 0 ? '#00D4AA' : '#FF6B6B' %>;"><%= format_currency(@projected_balance) %></p>
-      <p class="text-xs mt-1" style="color: #8892A4;">vs <%= format_currency(@prev_month_total) %> in <%= @prev_month_label %></p>
+      <p class="text-xs mt-1" style="color: #8892A4;"><%= t("forecast.index.vs") %> <%= format_currency(@prev_month_total) %> <%= t("forecast.index.in") %> <%= @prev_month_label %></p>
     </div>
   </div>
 
   <%# Forecast chart %>
   <div class="rounded-xl border p-5" style="background-color: #1E2130; border-color: #2A2F45;">
-    <h2 class="text-sm font-semibold mb-4" style="color: #E2E8F0;">Projected Spending by Category</h2>
+    <h2 class="text-sm font-semibold mb-4" style="color: #E2E8F0;"><%= t("forecast.index.projected_by_category") %></h2>
     <% if @forecast_chart_data.any? %>
       <%= bar_chart @forecast_chart_data,
           colors: ["#6C63FF"],
@@ -38,14 +38,14 @@
             }
           } %>
     <% else %>
-      <%= render "shared/empty_state", message: "No recurring expenses found" %>
+      <%= render "shared/empty_state", message: t("forecast.index.no_recurring") %>
     <% end %>
   </div>
 
   <%# Recurring expenses list %>
   <div class="rounded-xl border overflow-hidden" style="background-color: #1E2130; border-color: #2A2F45;">
     <div class="px-4 py-3 border-b" style="border-color: #2A2F45;">
-      <h2 class="text-sm font-semibold" style="color: #E2E8F0;">Recurring Expenses</h2>
+      <h2 class="text-sm font-semibold" style="color: #E2E8F0;"><%= t("forecast.index.recurring_expenses") %></h2>
     </div>
 
     <% if @recurring_expenses.any? %>
@@ -57,7 +57,7 @@
             </div>
             <div class="flex-1 min-w-0">
               <p class="text-sm font-medium truncate" style="color: #E2E8F0;"><%= expense.description %></p>
-              <p class="text-xs" style="color: #8892A4;"><%= expense.category.name %> · Day <%= expense.recurrence_day || "?" %></p>
+              <p class="text-xs" style="color: #8892A4;"><%= category_display_name(expense.category) %> · <%= t("forecast.index.day") %> <%= expense.recurrence_day || "?" %></p>
             </div>
             <div class="flex items-center gap-2 flex-shrink-0">
               <%= expense_type_badge(expense.expense_type) %>
@@ -69,8 +69,8 @@
     <% else %>
       <div class="flex flex-col items-center justify-center py-12 gap-3">
         <%= svg_icon "repeat", css_class: "w-10 h-10 opacity-20", stroke: "#8892A4" %>
-        <p class="text-sm" style="color: #8892A4;">No recurring expenses yet</p>
-        <p class="text-xs text-center max-w-xs" style="color: #8892A4;">Mark expenses as "recurring" when adding them to see your forecast here.</p>
+        <p class="text-sm" style="color: #8892A4;"><%= t("forecast.index.no_recurring_yet") %></p>
+        <p class="text-xs text-center max-w-xs" style="color: #8892A4;"><%= t("forecast.index.recurring_hint") %></p>
       </div>
     <% end %>
   </div>
@@ -79,7 +79,7 @@
   <% if @installment_expenses.any? %>
     <div class="rounded-xl border overflow-hidden" style="background-color: #1E2130; border-color: #2A2F45;">
       <div class="px-4 py-3 border-b" style="border-color: #2A2F45;">
-        <h2 class="text-sm font-semibold" style="color: #E2E8F0;">Installment Expenses</h2>
+        <h2 class="text-sm font-semibold" style="color: #E2E8F0;"><%= t("forecast.index.installment_expenses") %></h2>
       </div>
       <div class="divide-y" style="border-color: #2A2F45;">
         <% @installment_expenses.each do |expense| %>
@@ -89,7 +89,7 @@
             </div>
             <div class="flex-1 min-w-0">
               <p class="text-sm font-medium truncate" style="color: #E2E8F0;"><%= expense.description %></p>
-              <p class="text-xs" style="color: #8892A4;"><%= expense.category.name %> · Installment <%= expense.installment_label %></p>
+              <p class="text-xs" style="color: #8892A4;"><%= category_display_name(expense.category) %> · <%= t("forecast.index.installment") %> <%= expense.installment_label %></p>
             </div>
             <div class="flex items-center gap-2 flex-shrink-0">
               <%= expense_type_badge(expense.expense_type) %>
@@ -105,7 +105,7 @@
   <% if @prev_month_by_category.any? %>
     <div class="rounded-xl border overflow-hidden" style="background-color: #1E2130; border-color: #2A2F45;">
       <div class="px-4 py-3 border-b" style="border-color: #2A2F45;">
-        <h2 class="text-sm font-semibold" style="color: #E2E8F0;">Actuals — <%= @prev_month_label %></h2>
+        <h2 class="text-sm font-semibold" style="color: #E2E8F0;"><%= t("forecast.index.actuals") %> <%= @prev_month_label %></h2>
       </div>
       <div class="divide-y" style="border-color: #2A2F45;">
         <% @prev_month_by_category.sort_by { |_, v| -v }.first(6).each do |cat_name, amount| %>

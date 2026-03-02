@@ -10,7 +10,7 @@
     <div class="flex items-center gap-2 mt-0.5">
       <span class="text-xs" style="color: #8892A4;"><%= expense.date.strftime("%d %b %Y") %></span>
       <span class="text-xs" style="color: #2A2F45;">·</span>
-      <span class="text-xs" style="color: #8892A4;"><%= expense.category.name %></span>
+      <span class="text-xs" style="color: #8892A4;"><%= category_display_name(expense.category) %></span>
       <% if expense.payee %>
         <span class="text-xs" style="color: #2A2F45;">·</span>
         <span class="text-xs" style="color: #8892A4;"><%= expense.payee.name %></span>
@@ -48,7 +48,7 @@
       <%= svg_icon "edit", css_class: "w-3.5 h-3.5" %>
     <% end %>
     <%= button_to expense_path(expense), method: :delete,
-        form: { data: { turbo_confirm: "Delete this expense?" } },
+        form: { data: { turbo_confirm: t("expenses.expense.delete_confirm") } },
         class: "p-1.5 rounded-lg hover:bg-white/5 transition-colors", style: "color: #8892A4; background: none; border: none; cursor: pointer;" do %>
       <%= svg_icon "trash-2", css_class: "w-3.5 h-3.5" %>
     <% end %>

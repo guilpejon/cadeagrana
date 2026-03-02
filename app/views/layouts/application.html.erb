@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full">
+<html lang="<%= I18n.locale %>" class="h-full">
   <head>
-    <title>FinTrack</title>
+    <title>Cade a Grana</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="FinTrack">
+    <meta name="application-name" content="Cade a Grana">
     <meta name="mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -55,23 +55,23 @@
         <nav class="fixed bottom-0 left-0 right-0 z-30 lg:hidden flex items-center justify-around px-2 py-2 border-t" style="background-color: #1A1D27; border-color: #2A2F45;">
           <%= link_to root_path(month: month_param), class: "flex flex-col items-center gap-0.5 px-3 py-1 rounded-lg transition-colors", style: (controller_name == 'dashboard' ? 'color: #6C63FF' : 'color: #8892A4') do %>
             <%= svg_icon "home", css_class: "w-5 h-5" %>
-            <span class="text-xs">Home</span>
+            <span class="text-xs"><%= t("layouts.mobile_nav.home") %></span>
           <% end %>
           <%= link_to expenses_path(month: month_param), class: "flex flex-col items-center gap-0.5 px-3 py-1 rounded-lg transition-colors", style: (controller_name == 'expenses' ? 'color: #6C63FF' : 'color: #8892A4') do %>
             <%= svg_icon "credit-card", css_class: "w-5 h-5" %>
-            <span class="text-xs">Expenses</span>
+            <span class="text-xs"><%= t("layouts.mobile_nav.expenses") %></span>
           <% end %>
           <%= link_to incomes_path(month: month_param), class: "flex flex-col items-center gap-0.5 px-3 py-1 rounded-lg transition-colors", style: (controller_name == 'incomes' ? 'color: #6C63FF' : 'color: #8892A4') do %>
             <%= svg_icon "wallet", css_class: "w-5 h-5" %>
-            <span class="text-xs">Income</span>
+            <span class="text-xs"><%= t("layouts.mobile_nav.income") %></span>
           <% end %>
           <%= link_to investments_path(month: month_param), class: "flex flex-col items-center gap-0.5 px-3 py-1 rounded-lg transition-colors", style: (controller_name == 'investments' ? 'color: #6C63FF' : 'color: #8892A4') do %>
             <%= svg_icon "trending-up", css_class: "w-5 h-5" %>
-            <span class="text-xs">Invest</span>
+            <span class="text-xs"><%= t("layouts.mobile_nav.invest") %></span>
           <% end %>
           <%= link_to forecast_path(month: month_param), class: "flex flex-col items-center gap-0.5 px-3 py-1 rounded-lg transition-colors", style: (controller_name == 'forecast' ? 'color: #6C63FF' : 'color: #8892A4') do %>
             <%= svg_icon "bar-chart-2", css_class: "w-5 h-5" %>
-            <span class="text-xs">Forecast</span>
+            <span class="text-xs"><%= t("layouts.mobile_nav.forecast") %></span>
           <% end %>
         </nav>
 

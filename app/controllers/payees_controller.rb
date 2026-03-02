@@ -27,7 +27,7 @@ class PayeesController < ApplicationController
     @payee = current_user.payees.build(payee_params)
 
     if @payee.save
-      redirect_to payees_path, notice: "Payee created."
+      redirect_to payees_path, notice: t("controllers.payees.created")
     else
       render :new, status: :unprocessable_entity
     end
@@ -37,7 +37,7 @@ class PayeesController < ApplicationController
 
   def update
     if @payee.update(payee_params)
-      redirect_to payees_path, notice: "Payee updated."
+      redirect_to payees_path, notice: t("controllers.payees.updated")
     else
       render :edit, status: :unprocessable_entity
     end
@@ -45,7 +45,7 @@ class PayeesController < ApplicationController
 
   def destroy
     @payee.destroy
-    redirect_to payees_path, notice: "Payee deleted."
+    redirect_to payees_path, notice: t("controllers.payees.destroyed")
   end
 
   private

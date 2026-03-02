@@ -17,7 +17,7 @@ class CreditCardsController < ApplicationController
     @credit_card = current_user.credit_cards.build(credit_card_params)
 
     if @credit_card.save
-      redirect_to credit_cards_path, notice: "Credit card added."
+      redirect_to credit_cards_path, notice: t("controllers.credit_cards.created")
     else
       render :new, status: :unprocessable_entity
     end
@@ -27,7 +27,7 @@ class CreditCardsController < ApplicationController
 
   def update
     if @credit_card.update(credit_card_params)
-      redirect_to credit_cards_path, notice: "Credit card updated."
+      redirect_to credit_cards_path, notice: t("controllers.credit_cards.updated")
     else
       render :edit, status: :unprocessable_entity
     end
@@ -35,7 +35,7 @@ class CreditCardsController < ApplicationController
 
   def destroy
     @credit_card.destroy
-    redirect_to credit_cards_path, notice: "Credit card removed."
+    redirect_to credit_cards_path, notice: t("controllers.credit_cards.destroyed")
   end
 
   private
