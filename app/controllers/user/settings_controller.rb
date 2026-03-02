@@ -24,8 +24,8 @@ class User::SettingsController < ApplicationController
   end
 
   def update_password
-    result = if @user.provider.present?
-      @user.update(password_params.except(:current_password))
+    result = if @user.provider.present? && !@user.password_set?
+      @user.update(password_params.merge(password_set: true).except(:current_password))
     else
       @user.update_with_password(password_params)
     end

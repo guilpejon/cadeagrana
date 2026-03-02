@@ -61,3 +61,5 @@ pt-BR:
       not_saved:
         one: "1 erro impediu que este %{resource} fosse salvo:"
         other: "%{count} erros impediram que este %{resource} fosse salvo:"
+      confirmation: "não confere com %{attribute}"
+      invalid: "é inválido"

@@ -25,7 +25,9 @@ Rails.application.configure do
   config.active_storage.service = :local
 
   # Assume all access to the app is happening through a SSL-terminating reverse proxy.
-  # config.assume_ssl = true
+  # Required when running behind Cloudflare Tunnel so cookies get the Secure flag
+  # and HSTS headers are sent. Do NOT enable force_ssl alongside this — it causes redirect loops.
+  config.assume_ssl = true
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   # config.force_ssl = true
@@ -80,11 +82,8 @@ Rails.application.configure do
   config.active_record.attributes_for_inspect = [ :id ]
 
   # Enable DNS rebinding protection and other `Host` header attacks.
-  # config.hosts = [
-  #   "example.com",     # Allow requests from example.com
-  #   /.*\.example\.com/ # Allow requests from subdomains like `www.example.com`
-  # ]
-  #
-  # Skip DNS rebinding protection for the default health check endpoint.
-  # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
+  # Set APP_HOST on your server to your Cloudflare tunnel domain (e.g. "yourapp.yourdomain.com").
+  # Once set, only that hostname will be accepted.
+  config.hosts = [ ENV["APP_HOST"] ].compact if ENV["APP_HOST"].present?
+  config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
 end
