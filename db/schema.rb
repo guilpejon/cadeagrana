@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_03_150000) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_03_160000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -76,6 +76,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_03_150000) do
     t.index ["category_id"], name: "index_expenses_on_category_id"
     t.index ["credit_card_id"], name: "index_expenses_on_credit_card_id"
     t.index ["payee_id"], name: "index_expenses_on_payee_id"
+    t.index ["recurring_source_id"], name: "index_expenses_on_recurring_source_id"
     t.index ["user_id"], name: "index_expenses_on_user_id"
   end
 
@@ -105,6 +106,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_03_150000) do
     t.string "ticker"
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
+    t.index ["ticker", "investment_type"], name: "index_investments_on_ticker_and_investment_type"
     t.index ["user_id"], name: "index_investments_on_user_id"
   end
 
