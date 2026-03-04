@@ -14,7 +14,7 @@ module CdiRate
     daily = data.first["valor"].to_f
     annual = ((1 + daily / 100) ** BUSINESS_DAYS_PER_YEAR - 1) * 100
     payload = { rate: annual.round(6), date: data.first["data"], updated_at: Time.current }
-    Rails.cache.write(CACHE_KEY, payload, expires_in: 12.hours)
+    Rails.cache.write(CACHE_KEY, payload)
     payload[:rate]
   rescue HTTParty::Error, Timeout::Error, StandardError => e
     Rails.logger.error "CdiRate.fetch_from_bcb! error: #{e.message}"
