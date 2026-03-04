@@ -14,8 +14,7 @@ class ApplicationController < ActionController::Base
   def set_current_date
     return unless current_user
 
-    today = Date.current.beginning_of_month
-    min_date = today - 24.months
+    min_date = Date.current.beginning_of_month - 24.months
 
     latest_entry = [
       current_user.expenses.maximum(:date),
@@ -24,15 +23,18 @@ class ApplicationController < ActionController::Base
     latest_month = latest_entry&.beginning_of_month
     @max_date = [ today + 12.months, latest_month ].compact.max
 
+    current_month = Date.current.beginning_of_month
+
     if params[:month].present?
       date = Date.parse("#{params[:month]}-01")
       date = date.clamp(min_date, @max_date)
       session[:current_month] = date.strftime("%Y-%m")
-      @current_date = date
+      @current_date = date == current_month ? Date.current : date
     elsif session[:current_month].present?
-      @current_date = Date.parse("#{session[:current_month]}-01").clamp(min_date, @max_date)
+      date = Date.parse("#{session[:current_month]}-01").clamp(min_date, @max_date)
+      @current_date = date == current_month ? Date.current : date
     else
-      @current_date = today
+      @current_date = Date.current
     end
   rescue ArgumentError
     @current_date = Date.current.beginning_of_month
