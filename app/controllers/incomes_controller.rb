@@ -11,7 +11,7 @@ class IncomesController < ApplicationController
   end
 
   def new
-    @income = current_user.incomes.build(date: Date.current, income_type: "salary")
+    @income = current_user.incomes.build(date: @current_date, income_type: "salary")
   end
 
   def create
