@@ -70,15 +70,15 @@ class ExpenseTest < ActiveSupport::TestCase
     assert_not_includes results, last_month
   end
 
-  test "ordered scope orders by date descending" do
+  test "ordered scope orders by date ascending" do
     user = create(:user)
     category = user.categories.first
     old = create(:expense, user: user, category: category, date: 3.days.ago)
     recent = create(:expense, user: user, category: category, date: Date.current)
 
     ordered = Expense.ordered.to_a
-    assert_equal recent, ordered.first
-    assert_equal old, ordered.last
+    assert_equal old, ordered.first
+    assert_equal recent, ordered.last
   end
 
   test "fixed scope returns only fixed expenses" do
