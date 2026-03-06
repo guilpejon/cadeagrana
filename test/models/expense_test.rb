@@ -184,11 +184,56 @@ class ExpenseTest < ActiveSupport::TestCase
     assert_not expense.recurring_credit_card?
   end
 
+  # scheduled_payment?
+  test "scheduled_payment? returns true for recurring credit card" do
+    expense = build(:expense, expense_type: "fixed", recurring: true, payment_method: "credit_card")
+    assert expense.scheduled_payment?
+  end
+
+  test "scheduled_payment? returns true for recurring pix" do
+    expense = build(:expense, expense_type: "fixed", recurring: true, payment_method: "pix")
+    assert expense.scheduled_payment?
+  end
+
+  test "scheduled_payment? returns true for pix installment" do
+    expense = build(:expense, payment_method: "pix", total_installments: 3, installment_number: 1)
+    assert expense.scheduled_payment?
+  end
+
+  test "scheduled_payment? returns false for non-recurring non-installment pix" do
+    expense = build(:expense, payment_method: "pix", recurring: false, total_installments: 1)
+    assert_not expense.scheduled_payment?
+  end
+
+  test "scheduled_payment? returns false for recurring boleto" do
+    expense = build(:expense, expense_type: "fixed", recurring: true, payment_method: "boleto")
+    assert_not expense.scheduled_payment?
+  end
+
+  test "scheduled_payment? returns false for credit card installment" do
+    expense = build(:expense, payment_method: "credit_card", total_installments: 3, installment_number: 1)
+    assert_not expense.scheduled_payment?
+  end
+
   # set_default_payment_status
   test "recurring credit card expense gets scheduled status by default" do
     user = create(:user)
     category = user.categories.first
     expense = create(:expense, user: user, category: category, expense_type: "fixed", recurring: true, payment_method: "credit_card")
+    assert_equal "scheduled", expense.payment_status
+  end
+
+  test "recurring pix expense gets scheduled status by default" do
+    user = create(:user)
+    category = user.categories.first
+    expense = create(:expense, user: user, category: category, expense_type: "fixed", recurring: true, payment_method: "pix")
+    assert_equal "scheduled", expense.payment_status
+  end
+
+  test "pix installment expense gets scheduled status by default" do
+    user = create(:user)
+    category = user.categories.first
+    expense = create(:expense, user: user, category: category, payment_method: "pix", total_installments: 3, installment_number: 1)
     assert_equal "scheduled", expense.payment_status
   end
 
@@ -221,6 +266,28 @@ class ExpenseTest < ActiveSupport::TestCase
 
   test "next_payment_status for recurring credit card: paid -> scheduled" do
     expense = build(:expense, expense_type: "fixed", recurring: true, payment_method: "credit_card", payment_status: "paid")
+    assert_equal "scheduled", expense.next_payment_status
+  end
+
+  # next_payment_status for recurring pix (two-state cycle)
+  test "next_payment_status for recurring pix: scheduled -> paid" do
+    expense = build(:expense, expense_type: "fixed", recurring: true, payment_method: "pix", payment_status: "scheduled")
+    assert_equal "paid", expense.next_payment_status
+  end
+
+  test "next_payment_status for recurring pix: paid -> scheduled" do
+    expense = build(:expense, expense_type: "fixed", recurring: true, payment_method: "pix", payment_status: "paid")
+    assert_equal "scheduled", expense.next_payment_status
+  end
+
+  # next_payment_status for pix installment (two-state cycle)
+  test "next_payment_status for pix installment: scheduled -> paid" do
+    expense = build(:expense, payment_method: "pix", total_installments: 3, installment_number: 1, payment_status: "scheduled")
+    assert_equal "paid", expense.next_payment_status
+  end
+
+  test "next_payment_status for pix installment: paid -> scheduled" do
+    expense = build(:expense, payment_method: "pix", total_installments: 3, installment_number: 1, payment_status: "paid")
     assert_equal "scheduled", expense.next_payment_status
   end
 

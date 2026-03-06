@@ -33,8 +33,13 @@ class Expense < ApplicationRecord
     recurring? && payment_method == "credit_card"
   end
 
+  def scheduled_payment?
+    (recurring? && payment_method.in?(%w[credit_card pix])) ||
+      (installment? && payment_method == "pix")
+  end
+
   def next_payment_status
-    if recurring_credit_card?
+    if scheduled_payment?
       payment_status == "scheduled" ? "paid" : "scheduled"
     else
       current_index = PAYMENT_STATUSES.index(payment_status) || 0
@@ -58,7 +63,7 @@ class Expense < ApplicationRecord
     return if payment_status.present?
     if payment_method == "boleto"
       self.payment_status = "pending"
-    elsif recurring_credit_card?
+    elsif scheduled_payment?
       self.payment_status = "scheduled"
     end
   end
