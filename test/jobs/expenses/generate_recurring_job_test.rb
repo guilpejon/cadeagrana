@@ -63,6 +63,13 @@ class Expenses::GenerateRecurringJobTest < ActiveSupport::TestCase
     end
   end
 
+  test "generated credit card recurring expenses have scheduled status" do
+    cc_template = create(:expense, user: @user, category: @category, expense_type: "fixed", recurring: true, payment_method: "credit_card", date: Date.current)
+    Expenses::GenerateRecurringJob.new.perform(template_id: cc_template.id)
+    generated = Expense.where(recurring_source_id: cc_template.id)
+    assert generated.all? { |e| e.payment_status == "scheduled" }
+  end
+
   test "ignores templates that are generated expenses themselves" do
     generated = create(:expense, user: @user, category: @category, expense_type: "fixed", recurring: true, recurring_source_id: @template.id)
     count_before = Expense.count

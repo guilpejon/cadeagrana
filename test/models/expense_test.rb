@@ -167,4 +167,76 @@ class ExpenseTest < ActiveSupport::TestCase
     expense = build(:expense, installment_number: 2, total_installments: 6)
     assert_equal "2/6", expense.installment_label
   end
+
+  # recurring_credit_card?
+  test "recurring_credit_card? returns true for recurring credit card expense" do
+    expense = build(:expense, expense_type: "fixed", recurring: true, payment_method: "credit_card")
+    assert expense.recurring_credit_card?
+  end
+
+  test "recurring_credit_card? returns false for non-recurring credit card expense" do
+    expense = build(:expense, recurring: false, payment_method: "credit_card")
+    assert_not expense.recurring_credit_card?
+  end
+
+  test "recurring_credit_card? returns false for recurring boleto expense" do
+    expense = build(:expense, expense_type: "fixed", recurring: true, payment_method: "boleto")
+    assert_not expense.recurring_credit_card?
+  end
+
+  # set_default_payment_status
+  test "recurring credit card expense gets scheduled status by default" do
+    user = create(:user)
+    category = user.categories.first
+    expense = create(:expense, user: user, category: category, expense_type: "fixed", recurring: true, payment_method: "credit_card")
+    assert_equal "scheduled", expense.payment_status
+  end
+
+  test "boleto expense gets pending status by default" do
+    user = create(:user)
+    category = user.categories.first
+    expense = create(:expense, user: user, category: category, payment_method: "boleto")
+    assert_equal "pending", expense.payment_status
+  end
+
+  test "cash expense gets nil status by default" do
+    user = create(:user)
+    category = user.categories.first
+    expense = create(:expense, user: user, category: category, payment_method: "cash")
+    assert_nil expense.payment_status
+  end
+
+  test "explicit payment_status is not overridden on create" do
+    user = create(:user)
+    category = user.categories.first
+    expense = create(:expense, user: user, category: category, expense_type: "fixed", recurring: true, payment_method: "credit_card", payment_status: "paid")
+    assert_equal "paid", expense.payment_status
+  end
+
+  # next_payment_status for recurring credit card (two-state cycle)
+  test "next_payment_status for recurring credit card: scheduled -> paid" do
+    expense = build(:expense, expense_type: "fixed", recurring: true, payment_method: "credit_card", payment_status: "scheduled")
+    assert_equal "paid", expense.next_payment_status
+  end
+
+  test "next_payment_status for recurring credit card: paid -> scheduled" do
+    expense = build(:expense, expense_type: "fixed", recurring: true, payment_method: "credit_card", payment_status: "paid")
+    assert_equal "scheduled", expense.next_payment_status
+  end
+
+  # next_payment_status for boleto (three-state cycle)
+  test "next_payment_status for boleto: pending -> scheduled" do
+    expense = build(:expense, payment_method: "boleto", payment_status: "pending")
+    assert_equal "scheduled", expense.next_payment_status
+  end
+
+  test "next_payment_status for boleto: scheduled -> paid" do
+    expense = build(:expense, payment_method: "boleto", payment_status: "scheduled")
+    assert_equal "paid", expense.next_payment_status
+  end
+
+  test "next_payment_status for boleto: paid -> pending" do
+    expense = build(:expense, payment_method: "boleto", payment_status: "paid")
+    assert_equal "pending", expense.next_payment_status
+  end
 end

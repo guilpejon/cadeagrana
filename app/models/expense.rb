@@ -29,9 +29,17 @@ class Expense < ApplicationRecord
     "#{installment_number}/#{total_installments}"
   end
 
+  def recurring_credit_card?
+    recurring? && payment_method == "credit_card"
+  end
+
   def next_payment_status
-    current_index = PAYMENT_STATUSES.index(payment_status) || 0
-    PAYMENT_STATUSES[(current_index + 1) % PAYMENT_STATUSES.length]
+    if recurring_credit_card?
+      payment_status == "scheduled" ? "paid" : "scheduled"
+    else
+      current_index = PAYMENT_STATUSES.index(payment_status) || 0
+      PAYMENT_STATUSES[(current_index + 1) % PAYMENT_STATUSES.length]
+    end
   end
 
   scope :for_month, ->(date) { where(date: date.beginning_of_month..date.end_of_month) }
@@ -48,6 +56,10 @@ class Expense < ApplicationRecord
 
   def set_default_payment_status
     return if payment_status.present?
-    self.payment_status = "pending" if payment_method == "boleto"
+    if payment_method == "boleto"
+      self.payment_status = "pending"
+    elsif recurring_credit_card?
+      self.payment_status = "scheduled"
+    end
   end
 end
