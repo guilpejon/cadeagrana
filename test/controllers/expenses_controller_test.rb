@@ -233,13 +233,13 @@ class ExpensesControllerTest < ActionDispatch::IntegrationTest
     assert_equal [ base, base >> 1, base >> 2 ], dates
   end
 
-  test "POST create with installments and invalid description re-renders new" do
+  test "POST create with installments and invalid amount re-renders new" do
     sign_in @user
     assert_no_difference "Expense.count" do
       post expenses_path, params: {
         expense: {
-          description: nil,
-          amount: 300.00,
+          description: "Test",
+          amount: -1,
           date: Date.current,
           expense_type: "variable",
           category_id: @category.id,
