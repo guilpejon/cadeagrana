@@ -158,13 +158,13 @@ pt-BR:
     edit:
       title: "Editar Despesa"
     form:
-      amount: "Valor *"
+      amount: "Valor"
       payment_method: "Forma de Pagamento"
       cash: "Dinheiro"
       pix: "PIX"
       boleto: "Boleto"
       credit_card: "Cartão"
-      category: "Categoria *"
+      category: "Categoria"
       payee: "Beneficiário"
       payee_placeholder: "Buscar ou criar beneficiário..."
       description: "Descrição"

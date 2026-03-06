@@ -101,19 +101,6 @@
     </div>
   </div>
 
-  <%# Spending by Payee – Donut %>
-  <div class="rounded-xl border p-5" style="background-color: #1E2130; border-color: #2A2F45;">
-    <h2 class="text-sm font-semibold mb-4" style="color: #E2E8F0;"><%= t("dashboard.spending_by_payee") %></h2>
-    <% if @spending_by_payee.any? %>
-      <%= pie_chart @spending_by_payee.transform_values(&:to_f),
-          donut: true, colors: @spending_by_payee_colors, legend: true,
-          library: { plugins: { legend: { position: "bottom",
-            labels: { color: "#8892A4", font: { size: 12 }, padding: 12 } } } } %>
-    <% else %>
-      <%= render "shared/empty_state", message: t("dashboard.no_payees_month") %>
-    <% end %>
-  </div>
-
   <%# Recent Transactions %>
   <div class="rounded-xl border p-5" style="background-color: #1E2130; border-color: #2A2F45;">
     <div class="flex items-center justify-between mb-4">

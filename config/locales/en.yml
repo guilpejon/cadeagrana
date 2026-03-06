@@ -117,13 +117,13 @@ en:
     edit:
       title: "Edit Expense"
     form:
-      amount: "Amount *"
+      amount: "Amount"
       payment_method: "Payment Method"
       cash: "Cash"
       pix: "PIX"
       boleto: "Boleto"
       credit_card: "Card"
-      category: "Category *"
+      category: "Category"
       payee: "Payee"
       payee_placeholder: "Search or create payee..."
       description: "Description"

@@ -9,6 +9,16 @@
     </div>
   <% end %>
 
+  <%# Description %>
+  <div>
+    <label class="block text-xs font-medium mb-1.5" style="color: #8892A4;"><%= t("expenses.form.description") %></label>
+    <%= f.text_field :description,
+        class: "w-full px-3 py-2.5 rounded-lg border text-sm outline-none focus:ring-2 transition-all",
+        style: "background-color: #0F1117; border-color: #2A2F45; color: #E2E8F0;",
+        placeholder: t("expenses.form.description_placeholder"),
+        autofocus: true %>
+  </div>
+
   <%# Amount %>
   <div>
     <label class="block text-xs font-medium mb-1.5" style="color: #8892A4;"><%= t("expenses.form.amount") %></label>
@@ -17,7 +27,7 @@
       <%= f.number_field :amount, step: "0.01", min: "0",
           class: "w-full pl-9 pr-3 py-2.5 rounded-lg border text-sm font-semibold outline-none focus:ring-2 transition-all",
           style: "background-color: #0F1117; border-color: #2A2F45; color: #E2E8F0;",
-          placeholder: "0,00", autofocus: true,
+          placeholder: "0,00",
           data: { expense_payment_target: "amount", action: "input->expense-payment#updatePerInstallment" } %>
     </div>
   </div>
@@ -61,35 +71,6 @@
         </label>
       <% end %>
     </div>
-  </div>
-
-  <%# Payee %>
-  <div class="relative" data-controller="payee-autocomplete">
-    <label class="block text-xs font-medium mb-1.5" style="color: #8892A4;"><%= t("expenses.form.payee") %></label>
-    <%= hidden_field_tag "expense[payee_id]", expense.payee_id,
-        data: { payee_autocomplete_target: "payeeId" } %>
-    <input type="text" name="expense[payee_name]"
-           value="<%= expense.payee&.name %>"
-           placeholder="<%= t("expenses.form.payee_placeholder") %>"
-           autocomplete="off"
-           data-payee-autocomplete-target="payeeName"
-           data-action="input->payee-autocomplete#search focus->payee-autocomplete#focusIn"
-           class="w-full px-3 py-2.5 rounded-lg border text-sm outline-none focus:ring-2 transition-all"
-           style="background-color: #0F1117; border-color: #2A2F45; color: #E2E8F0;" />
-    <div data-payee-autocomplete-target="dropdown"
-         style="display:none; position:absolute; z-index:50; top:100%; left:0; right:0;
-                background:#1E2130; border:1px solid #2A2F45; border-radius:0.5rem;
-                max-height:200px; overflow-y:auto;">
-    </div>
-  </div>
-
-  <%# Description %>
-  <div>
-    <label class="block text-xs font-medium mb-1.5" style="color: #8892A4;"><%= t("expenses.form.description") %></label>
-    <%= f.text_field :description,
-        class: "w-full px-3 py-2.5 rounded-lg border text-sm outline-none focus:ring-2 transition-all",
-        style: "background-color: #0F1117; border-color: #2A2F45; color: #E2E8F0;",
-        placeholder: t("expenses.form.description_placeholder") %>
   </div>
 
   <%# Secondary fields %>

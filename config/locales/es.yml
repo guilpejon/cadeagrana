@@ -158,13 +158,13 @@ es:
     edit:
       title: "Editar Gasto"
     form:
-      amount: "Importe *"
+      amount: "Importe"
       payment_method: "Método de Pago"
       cash: "Efectivo"
       pix: "PIX"
       boleto: "Boleto"
       credit_card: "Tarjeta"
-      category: "Categoría *"
+      category: "Categoría"
       payee: "Beneficiario"
       payee_placeholder: "Buscar o crear beneficiario..."
       description: "Descripción"

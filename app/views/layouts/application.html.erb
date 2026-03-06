@@ -106,7 +106,6 @@
           "investments"   => new_investment_path,
           "possessions"   => new_possession_path,
           "categories"    => new_category_path,
-          "payees"        => new_payee_path,
         }.fetch(controller_name, new_expense_path) %>
         <% show_fab = !action_name.in?(%w[new edit create update]) && controller_name != "forecast" %>
         <% if show_fab %>

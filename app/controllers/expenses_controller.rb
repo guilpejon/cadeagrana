@@ -20,9 +20,9 @@ class ExpensesController < ApplicationController
   end
 
   def new
-    @expense = current_user.expenses.build(date: @current_date, expense_type: "variable")
     @categories = current_user.categories.order(:name)
     @credit_cards = current_user.credit_cards.order(:name)
+    @expense = current_user.expenses.build(date: @current_date, expense_type: "variable", category: @categories.first)
     @quick = params[:quick].present?
   end
 

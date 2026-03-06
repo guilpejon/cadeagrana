@@ -38,7 +38,6 @@
     <div class="space-y-1">
       <%= render "layouts/nav_item", icon: "credit-card", label: t("layouts.sidebar.credit_cards"), path: credit_cards_path(month: month_param), active: controller_name == "credit_cards" %>
       <%= render "layouts/nav_item", icon: "tag", label: t("layouts.sidebar.categories"), path: categories_path(month: month_param), active: controller_name == "categories" %>
-      <%= render "layouts/nav_item", icon: "user", label: t("layouts.sidebar.payees"), path: payees_path, active: controller_name == "payees" %>
     </div>
   </nav>
 

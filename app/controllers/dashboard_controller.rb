@@ -24,18 +24,6 @@ class DashboardController < ApplicationController
     @spending_colors = raw_spending.keys.map { |name| category_color_map[name] || "#6C63FF" }
     @spending_by_category = raw_spending.transform_keys { |name| I18n.t("category_names.#{name}", default: name) }
 
-    # Spending by payee for donut chart
-    @spending_by_payee = @expenses
-      .joins(:payee)
-      .group("payees.name")
-      .sum(:amount)
-      .sort_by { |_, v| -v }
-      .first(8)
-      .to_h
-
-    payee_palette = %w[#6C63FF #00D4AA #FF6B6B #F7B731 #A78BFA #34D399 #60A5FA #F472B6]
-    @spending_by_payee_colors = payee_palette.first(@spending_by_payee.size)
-
     # Monthly cash flow for last 6 months (bar chart)
     @monthly_income = current_user.incomes
       .where(date: 6.months.ago.beginning_of_month..Date.current.end_of_month)
