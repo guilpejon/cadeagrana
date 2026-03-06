@@ -58,12 +58,21 @@ ChartJS.register({
 })
 
 // Hide chart values (ticks + tooltips) when privacy mode is on
+// Only hides the currency/value axis — category names and dates are preserved
 ChartJS.register({
   id: 'privacyMode',
   beforeInit(chart) {
     if (!chart.options.plugins) chart.options.plugins = {}
     if (!chart.options.plugins.tooltip) chart.options.plugins.tooltip = {}
-    Object.values(chart.options.scales || {}).forEach(scale => {
+
+    // Determine which axis holds currency values:
+    // prefer explicit [data-currency-axis] wrapper, then infer from chart orientation
+    const wrapper = chart.canvas?.closest('[data-currency-axis]')
+    const currencyAxisId = wrapper?.dataset.currencyAxis ||
+      (chart.options.indexAxis === 'y' ? 'x' : 'y')
+
+    Object.entries(chart.options.scales || {}).forEach(([axisId, scale]) => {
+      if (axisId !== currencyAxisId) return  // skip category/date axes
       if (!scale.ticks) scale.ticks = {}
       const orig = scale.ticks.callback
       scale.ticks.callback = function(value, index, ticks) {
