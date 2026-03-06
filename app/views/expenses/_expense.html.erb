@@ -5,7 +5,11 @@
                      else
                        "standard_delete"
                      end %>
-<div id="expense_<%= expense.id %>" class="flex gap-3 px-4 py-3 hover:bg-white/[0.02] transition-colors" style="<%= "background-color: rgba(0,212,170,0.06);" if expense.payment_status == "paid" %>">
+<div id="expense_<%= expense.id %>" class="flex gap-3 px-4 py-3 hover:bg-white/[0.02] transition-colors" style="<%= case expense.payment_status
+            when "paid"      then "background-color: rgba(0,212,170,0.06);"
+            when "scheduled" then "background-color: rgba(129,140,248,0.06);"
+            when "pending"   then "background-color: rgba(255,107,107,0.06);"
+            end %>">
   <%# Category icon %>
   <div class="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5" style="background-color: <%= expense.category.color %>22;">
     <%= svg_icon expense.category.icon, css_class: "w-4 h-4", stroke: expense.category.color %>
