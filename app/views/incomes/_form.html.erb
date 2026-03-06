@@ -14,9 +14,17 @@
 
   <div>
     <label class="block text-xs font-medium mb-1.5" style="color: #8892A4;"><%= t("incomes.form.amount") %></label>
-    <div class="relative">
+    <div class="relative" data-controller="currency-input">
       <span class="absolute left-3 top-1/2 -translate-y-1/2 text-sm font-medium" style="color: #8892A4;">R$</span>
-      <%= f.number_field :amount, step: "0.01", min: "0", class: "w-full pl-9 pr-3 py-2.5 rounded-lg border text-sm font-semibold outline-none transition-all", style: "background-color: #0F1117; border-color: #2A2F45; color: #E2E8F0;", placeholder: "0,00" %>
+      <%= f.hidden_field :amount, data: { currency_input_target: "hidden" } %>
+      <input type="text"
+             inputmode="numeric"
+             autocomplete="off"
+             data-currency-input-target="display"
+             data-action="input->currency-input#input"
+             class="w-full pl-9 pr-3 py-2.5 rounded-lg border text-sm font-semibold outline-none transition-all"
+             style="background-color: #0F1117; border-color: #2A2F45; color: #E2E8F0;"
+             placeholder="0,00">
     </div>
   </div>
 

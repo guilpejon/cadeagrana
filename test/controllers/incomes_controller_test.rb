@@ -46,6 +46,36 @@ class IncomesControllerTest < ActionDispatch::IntegrationTest
     assert_equal I18n.t("controllers.incomes.created"), flash[:notice]
   end
 
+  test "POST create with string amount from currency input creates income" do
+    sign_in @user
+    assert_difference "Income.count", 1 do
+      post incomes_path, params: {
+        income: {
+          description: "Monthly salary",
+          amount: "5000.00",
+          date: Date.current,
+          income_type: "salary"
+        }
+      }
+    end
+    assert_equal 5000.00, Income.last.amount.to_f
+  end
+
+  test "GET new renders currency-input controller on amount field" do
+    sign_in @user
+    get new_income_path
+    assert_select "[data-controller='currency-input']"
+    assert_select "input[data-currency-input-target='display']"
+    assert_select "input[data-currency-input-target='hidden']"
+  end
+
+  test "GET edit renders amount pre-populated for currency-input" do
+    @income.update!(amount: 3500.50)
+    sign_in @user
+    get edit_income_path(@income)
+    assert_select "input[data-currency-input-target='hidden'][value='3500.5']"
+  end
+
   test "POST create with invalid params re-renders new" do
     sign_in @user
     assert_no_difference "Income.count" do

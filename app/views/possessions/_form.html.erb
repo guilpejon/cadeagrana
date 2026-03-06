@@ -37,11 +37,31 @@
   <div class="grid grid-cols-2 gap-3">
     <div>
       <label class="block text-xs font-medium mb-1.5" style="color: #8892A4;"><%= t("possessions.form.purchase_price") %></label>
-      <%= f.number_field :purchase_price, step: "0.01", min: "0", class: "w-full px-3 py-2.5 rounded-lg border text-sm outline-none transition-all", style: "background-color: #0F1117; border-color: #2A2F45; color: #E2E8F0;", placeholder: "0.00" %>
+      <div data-controller="currency-input">
+        <%= f.hidden_field :purchase_price, data: { currency_input_target: "hidden" } %>
+        <input type="text"
+               inputmode="numeric"
+               autocomplete="off"
+               data-currency-input-target="display"
+               data-action="input->currency-input#input"
+               class="w-full px-3 py-2.5 rounded-lg border text-sm outline-none transition-all"
+               style="background-color: #0F1117; border-color: #2A2F45; color: #E2E8F0;"
+               placeholder="0,00">
+      </div>
     </div>
     <div>
       <label class="block text-xs font-medium mb-1.5" style="color: #8892A4;"><%= t("possessions.form.current_value") %></label>
-      <%= f.number_field :current_value, step: "0.01", min: "0", class: "w-full px-3 py-2.5 rounded-lg border text-sm outline-none transition-all", style: "background-color: #0F1117; border-color: #2A2F45; color: #E2E8F0;", placeholder: "0.00" %>
+      <div data-controller="currency-input">
+        <%= f.hidden_field :current_value, data: { currency_input_target: "hidden" } %>
+        <input type="text"
+               inputmode="numeric"
+               autocomplete="off"
+               data-currency-input-target="display"
+               data-action="input->currency-input#input"
+               class="w-full px-3 py-2.5 rounded-lg border text-sm outline-none transition-all"
+               style="background-color: #0F1117; border-color: #2A2F45; color: #E2E8F0;"
+               placeholder="0,00">
+      </div>
     </div>
   </div>
 

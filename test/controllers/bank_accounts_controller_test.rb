@@ -50,6 +50,41 @@ class BankAccountsControllerTest < ActionDispatch::IntegrationTest
     assert_equal I18n.t("controllers.bank_accounts.created"), flash[:notice]
   end
 
+  test "POST create with string balance from currency input creates bank account" do
+    sign_in @user
+    assert_difference "BankAccount.count", 1 do
+      post bank_accounts_path, params: {
+        bank_account: {
+          name: "My Savings",
+          bank_name: "Nubank",
+          account_type: "savings",
+          balance: "5000.00",
+          interest_rate: 6.5,
+          currency: "BRL",
+          color: "#6C63FF",
+          rate_type: "fixed",
+          cdi_multiplier: 100.0
+        }
+      }
+    end
+    assert_equal 5000.00, BankAccount.last.balance.to_f
+  end
+
+  test "GET new renders currency-input controller on balance field" do
+    sign_in @user
+    get new_bank_account_path
+    assert_select "[data-controller='currency-input']"
+    assert_select "input[data-currency-input-target='display']"
+    assert_select "input[data-currency-input-target='hidden']"
+  end
+
+  test "GET edit renders balance pre-populated for currency-input" do
+    @bank_account.update!(balance: 2500.75)
+    sign_in @user
+    get edit_bank_account_path(@bank_account)
+    assert_select "input[data-currency-input-target='hidden'][value='2500.75']"
+  end
+
   test "POST create with CDI rate creates bank account" do
     sign_in @user
     assert_difference "BankAccount.count", 1 do

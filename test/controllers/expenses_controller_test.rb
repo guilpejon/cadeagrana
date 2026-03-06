@@ -93,6 +93,37 @@ class ExpensesControllerTest < ActionDispatch::IntegrationTest
     assert_equal I18n.t("controllers.expenses.created"), flash[:notice]
   end
 
+  test "POST create with string amount from currency input creates expense" do
+    sign_in @user
+    assert_difference "Expense.count", 1 do
+      post expenses_path, params: {
+        expense: {
+          description: "Groceries",
+          amount: "150.00",
+          date: Date.current,
+          expense_type: "variable",
+          category_id: @category.id
+        }
+      }
+    end
+    assert_equal 150.00, Expense.last.amount.to_f
+  end
+
+  test "GET new renders currency-input controller on amount field" do
+    sign_in @user
+    get new_expense_path
+    assert_select "[data-controller='currency-input']"
+    assert_select "input[data-currency-input-target='display']"
+    assert_select "input[data-currency-input-target='hidden']"
+  end
+
+  test "GET edit renders amount pre-populated for currency-input" do
+    @expense.update!(amount: 99.99)
+    sign_in @user
+    get edit_expense_path(@expense)
+    assert_select "input[data-currency-input-target='hidden'][value='99.99']"
+  end
+
   test "POST create with invalid params re-renders new" do
     sign_in @user
     assert_no_difference "Expense.count" do

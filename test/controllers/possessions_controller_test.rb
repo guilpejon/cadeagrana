@@ -48,6 +48,42 @@ class PossessionsControllerTest < ActionDispatch::IntegrationTest
     assert_equal I18n.t("controllers.possessions.created"), flash[:notice]
   end
 
+  test "POST create with string amounts from currency input creates possession" do
+    sign_in @user
+    assert_difference "Possession.count", 1 do
+      post possessions_path, params: {
+        possession: {
+          name: "MacBook Pro",
+          possession_type: "electronics",
+          purchase_price: "15000.00",
+          current_value: "12000.00",
+          purchase_date: "2024-01-15",
+          currency: "BRL",
+          color: "#6C63FF"
+        }
+      }
+    end
+    possession = Possession.last
+    assert_equal 15000.00, possession.purchase_price.to_f
+    assert_equal 12000.00, possession.current_value.to_f
+  end
+
+  test "GET new renders currency-input controllers on price fields" do
+    sign_in @user
+    get new_possession_path
+    assert_select "[data-controller='currency-input']", count: 2
+    assert_select "input[data-currency-input-target='display']", count: 2
+    assert_select "input[data-currency-input-target='hidden']", count: 2
+  end
+
+  test "GET edit renders price fields pre-populated for currency-input" do
+    @possession.update!(purchase_price: 10000.00, current_value: 8500.00)
+    sign_in @user
+    get edit_possession_path(@possession)
+    assert_select "input[data-currency-input-target='hidden'][value='10000.0']"
+    assert_select "input[data-currency-input-target='hidden'][value='8500.0']"
+  end
+
   test "POST create with invalid params re-renders new" do
     sign_in @user
     assert_no_difference "Possession.count" do
