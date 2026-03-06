@@ -30,7 +30,7 @@ class ForecastControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "future month shows recurring and installment expenses" do
-    create(:expense, user: @user, category: @category, recurring: true, amount: 500)
+    create(:expense, user: @user, category: @category, expense_type: "fixed", recurring: true, amount: 500)
     create(:expense, user: @user, category: @category,
            date: 1.month.from_now.beginning_of_month,
            total_installments: 3, installment_number: 1, amount: 100)

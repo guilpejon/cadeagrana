@@ -283,7 +283,7 @@ class ExpensesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "DELETE destroy with delete_following removes recurring future expenses" do
-    template = create(:expense, user: @user, category: @category, recurring: true, date: 2.months.ago)
+    template = create(:expense, user: @user, category: @category, expense_type: "fixed", recurring: true, date: 2.months.ago)
     future1 = create(:expense, user: @user, category: @category, recurring_source_id: template.id, date: 1.month.from_now)
     future2 = create(:expense, user: @user, category: @category, recurring_source_id: template.id, date: 2.months.from_now)
     past = create(:expense, user: @user, category: @category, recurring_source_id: template.id, date: 1.month.ago)

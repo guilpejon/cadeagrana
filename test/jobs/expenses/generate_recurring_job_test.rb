@@ -4,7 +4,7 @@ class Expenses::GenerateRecurringJobTest < ActiveSupport::TestCase
   setup do
     @user = create(:user)
     @category = @user.categories.first
-    @template = create(:expense, user: @user, category: @category, recurring: true, date: Date.current)
+    @template = create(:expense, user: @user, category: @category, expense_type: "fixed", recurring: true, date: Date.current)
   end
 
   test "generates 11 future months from template" do
@@ -42,7 +42,7 @@ class Expenses::GenerateRecurringJobTest < ActiveSupport::TestCase
   end
 
   test "handles month-end day edge case (day 31 in short month)" do
-    template = create(:expense, user: @user, category: @category, recurring: true, date: Date.new(Date.current.year, 1, 31))
+    template = create(:expense, user: @user, category: @category, expense_type: "fixed", recurring: true, date: Date.new(Date.current.year, 1, 31))
     Expenses::GenerateRecurringJob.new.perform(template_id: template.id)
     feb = Expense.where(recurring_source_id: template.id).find { |e| e.date.month == 2 }
     assert_not_nil feb
@@ -56,7 +56,7 @@ class Expenses::GenerateRecurringJobTest < ActiveSupport::TestCase
   end
 
   test "when no template_id given processes all recurring templates" do
-    other_template = create(:expense, user: @user, category: @category, recurring: true, date: Date.current)
+    other_template = create(:expense, user: @user, category: @category, expense_type: "fixed", recurring: true, date: Date.current)
 
     assert_difference "Expense.count", 22 do
       Expenses::GenerateRecurringJob.new.perform
@@ -64,7 +64,7 @@ class Expenses::GenerateRecurringJobTest < ActiveSupport::TestCase
   end
 
   test "ignores templates that are generated expenses themselves" do
-    generated = create(:expense, user: @user, category: @category, recurring: true, recurring_source_id: @template.id)
+    generated = create(:expense, user: @user, category: @category, expense_type: "fixed", recurring: true, recurring_source_id: @template.id)
     count_before = Expense.count
     Expenses::GenerateRecurringJob.new.perform(template_id: generated.id)
     assert_equal count_before, Expense.count

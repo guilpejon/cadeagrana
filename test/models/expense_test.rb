@@ -105,11 +105,23 @@ class ExpenseTest < ActiveSupport::TestCase
   test "recurring scope returns only recurring expenses" do
     user = create(:user)
     category = user.categories.first
-    recurring = create(:expense, user: user, category: category, recurring: true, recurrence_day: 5)
+    recurring = create(:expense, user: user, category: category, expense_type: "fixed", recurring: true, recurrence_day: 5)
     one_time = create(:expense, user: user, category: category, recurring: false)
 
     assert_includes Expense.recurring, recurring
     assert_not_includes Expense.recurring, one_time
+  end
+
+  # recurring
+  test "variable expense cannot be recurring" do
+    expense = build(:expense, expense_type: "variable", recurring: true)
+    assert_not expense.valid?
+    assert expense.errors[:recurring].any?
+  end
+
+  test "fixed expense can be recurring" do
+    expense = build(:expense, expense_type: "fixed", recurring: true, recurrence_day: 5)
+    assert expense.valid?
   end
 
   # payment_method

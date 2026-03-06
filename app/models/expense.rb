@@ -13,6 +13,7 @@ class Expense < ApplicationRecord
   validates :date, presence: true
   validates :expense_type, inclusion: { in: TYPES }
   validates :recurrence_day, numericality: { in: 1..28 }, allow_nil: true
+  validate :recurring_only_allowed_for_fixed
   validates :payment_method, inclusion: { in: PAYMENT_METHODS }
   validates :total_installments, numericality: { in: 1..60 }
   validates :installment_number, numericality: { in: 1..60 }
@@ -40,6 +41,10 @@ class Expense < ApplicationRecord
   scope :recurring, -> { where(recurring: true) }
 
   private
+
+  def recurring_only_allowed_for_fixed
+    errors.add(:recurring, :invalid) if recurring? && expense_type == "variable"
+  end
 
   def set_default_payment_status
     return if payment_status.present?

@@ -8,7 +8,8 @@ export default class extends Controller {
     "amount",
     "perInstallmentDisplay",
     "recurringField",
-    "recurring"
+    "recurring",
+    "expenseType"
   ]
 
   connect() {
@@ -51,8 +52,16 @@ export default class extends Controller {
 
     if (this.hasRecurringFieldTarget) {
       const installments = this.hasInstallmentsTarget ? (parseInt(this.installmentsTarget.value) || 1) : 1
-      this.recurringFieldTarget.style.display = (showInstallments && installments > 1) ? "none" : ""
+      const isVariable = this.hasExpenseTypeTarget && this.expenseTypeTarget.value === "variable"
+      this.recurringFieldTarget.style.display = (isVariable || (showInstallments && installments > 1)) ? "none" : ""
+      if (isVariable && this.hasRecurringTarget) {
+        this.recurringTarget.checked = false
+      }
     }
+  }
+
+  typeChanged() {
+    this.updateVisibility()
   }
 
   recurringChanged() {
