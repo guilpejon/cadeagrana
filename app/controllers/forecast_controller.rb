@@ -91,7 +91,9 @@ class ForecastController < ApplicationController
     # Previous month actuals for comparison
     prev_month = @current_date - 1.month
     @prev_month_label = I18n.l(prev_month, format: "%B %Y")
-    @prev_month_total = current_user.expenses.for_month(prev_month).sum(:amount)
+    prev_month_expenses = current_user.expenses.for_month(prev_month).sum(:amount)
+    prev_month_income = current_user.incomes.for_month(prev_month).sum(:amount)
+    @prev_month_balance = prev_month_income - prev_month_expenses
     @prev_month_by_category = current_user.expenses
       .for_month(prev_month)
       .joins(:category)
