@@ -14,7 +14,6 @@ servers:
 proxy:
   ssl: false
   host: monitoresuagrana.com.br,www.monitoresuagrana.com.br
-  deploy_timeout: 60
   healthcheck:
     path: /up
     interval: 3
@@ -54,6 +53,7 @@ aliases:
 # Use a persistent storage volume for Active Storage files.
 volumes:
   - "monitoresuagrana_storage:/rails/storage"
+  - "monitoresuagrana_cache:/rails/tmp/cache"
 
 asset_path: /rails/public/assets
 
